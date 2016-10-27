@@ -7,6 +7,7 @@ public class Course {
    public String name;   
    public int section;
    public String professor;
+   public String requirement;
    public String type;
    public String days;
    public String start;
@@ -17,10 +18,11 @@ public class Course {
  
    }
 
-   public Course(String name, int section, String professor, String type, String days, String start, String end, String location) {
+   public Course(String name, int section, String professor, String requirement, String type, String days, String start, String end, String location) {
       this.name = name;
       this.section = section;
       this.professor = professor;
+      this.requirement = requirement;
       this.type = type;
       this.days = days;
       this.start = start;

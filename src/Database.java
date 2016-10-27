@@ -25,6 +25,7 @@ public class Database {
             "   name TEXT," +
             "   section INTEGER," +
             "   professor TEXT," +
+            "   requirement TEXT," +
             "   type TEXT," +
             "   days TEXT," +
             "   start TEXT," +
@@ -41,17 +42,18 @@ public class Database {
    public void create(Course course) {
        try {
           PreparedStatement preparedStatement = connection.prepareStatement(
-             "INSERT INTO Courses (name, section, professor, type, days, start, end, location) " +
-             "VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
+             "INSERT INTO Courses (name, section, professor, requirement, type, days, start, end, location) " +
+             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);"
           );
           preparedStatement.setString(1, course.name); 
           preparedStatement.setInt(2, course.section);
           preparedStatement.setString(3, course.professor);
-          preparedStatement.setString(4, course.type);
-          preparedStatement.setString(5, course.days);
-          preparedStatement.setString(6, course.start);
-          preparedStatement.setString(7, course.end);
-          preparedStatement.setString(8, course.location);
+          preparedStatement.setString(4, course.requirement);
+          preparedStatement.setString(5, course.type);
+          preparedStatement.setString(6, course.days);
+          preparedStatement.setString(7, course.start);
+          preparedStatement.setString(8, course.end);
+          preparedStatement.setString(9, course.location);
           preparedStatement.execute();
           preparedStatement.close();
        } catch (Exception ex) {
@@ -69,6 +71,7 @@ public class Database {
                resultSet.getString("name"),
                resultSet.getInt("section"),
                resultSet.getString("professor"),
+               resultSet.getString("requirement"),
                resultSet.getString("type"),
                resultSet.getString("days"),
                resultSet.getString("start"),
@@ -83,7 +86,7 @@ public class Database {
       return courseList;
    }
 
-   public List<Course> read(Course course) {
+   /*public List<Course> read(Course course) {
       List<Course> courseList = new ArrayList<Course>();
       try {
          PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Courses WHERE name = ?");
@@ -106,7 +109,7 @@ public class Database {
          ex.printStackTrace();
       }
       return courseList; 
-   }
+   }*/
 
    public void update(Course oldCourse, Course newCourse) {
       // TODO
