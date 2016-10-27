@@ -1,3 +1,4 @@
+[req]
 me = req_distinguished_name
 x509_extensions = v3_req
 prompt = no
@@ -6,8 +7,8 @@ prompt = no
 C = US
 ST = CA
 L = San Luis Obispo
-O = AI Project
-CN = AlexaTest
+O = Cal Poly Alexa Scheduler
+CN = ClassScheduler
 
 [v3_req]
 keyUsage = keyEncipherment, dataEncipherment
@@ -15,4 +16,4 @@ extendedKeyUsage = serverAuth
 subjectAltName = @subject_alternate_names
 
 [subject_alternate_names]
-DNS.1 = http://alexatest.gmc2spfyw2.us-west-2.elasticbeanstalk.com/
+DNS.1 = alexatest.gmc2spfyw2.us-west-2.elasticbeanstalk.com

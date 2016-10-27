@@ -1,14 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <groupId>com.ai</groupId>
-  <artifactId>alexa-tutorial</artifactId>
-  <packaging>war</packaging>
+  <artifactId>alexa-scheduler</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>alexa-tutorial Maven Webapp</name>
-  <url>http://maven.apache.org</url>
+  <packaging>war</packaging>
+
+  <name>Cal Poly Scheduler</name>
+
   <dependencies>
-  <!-- https://mvnrepository.com/artifact/com.amazon.alexa/alexa-skills-kit -->
 	<dependency>
 	    <groupId>com.amazon.alexa</groupId>
 	    <artifactId>alexa-skills-kit</artifactId>
@@ -20,8 +21,70 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+      <dependency>
+          <groupId>org.eclipse.jetty</groupId>
+          <artifactId>jetty-server</artifactId>
+          <version>9.0.6.v20130930</version>
+          <scope>compile</scope>
+      </dependency>
+      <dependency>
+          <groupId>org.eclipse.jetty</groupId>
+          <artifactId>jetty-servlet</artifactId>
+          <version>9.0.6.v20130930</version>
+          <scope>compile</scope>
+      </dependency>
   </dependencies>
-  <build>
-    <finalName>alexa-skills-kit-samples</finalName>
-  </build>
+
+    <properties>
+        <property name="disableRequestSignatureCheck" value="false"/>
+        <property name="supportedApplicationIds" value=""/>
+        <property name="timestampTolerance" value="150"/>
+    </properties>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.3</version>
+                    <configuration>
+                        <source>1.7</source>
+                        <target>1.7</target>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>1.2.1</version>
+                    <configuration>
+                        <mainClass>Launcher</mainClass>
+                        <systemProperties>
+                            <systemProperty>
+                                <key>javax.net.ssl.keyStore</key>
+                                <value>${project.basedir}/../awsKey/keystore.pkcs12</value>
+                            </systemProperty>
+                            <systemProperty>
+                                <key>javax.net.ssl.keyStorePassword</key>
+                                <value>ts58016</value>
+                            </systemProperty>
+                            <systemProperty>
+                                <key>com.amazon.speech.speechlet.servlet.disableRequestSignatureCheck</key>
+                                <value>${disableRequestSignatureCheck}</value>
+                            </systemProperty>
+                            <systemProperty>
+                                <key>com.amazon.speech.speechlet.servlet.supportedApplicationIds</key>
+                                <value>${supportedApplicationIds}</value>
+                            </systemProperty>
+                            <systemProperty>
+                                <key>com.amazon.speech.speechlet.servlet.timestampTolerance</key>
+                                <value>${timestampTolerance}</value>
+                            </systemProperty>
+                        </systemProperties>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>
