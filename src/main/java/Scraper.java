@@ -149,7 +149,7 @@ public class Scraper {
     }
 
     //inner arraylist must be filled with components in the exact order of the Course constructor
-    //name, section, professor, type, days, start, end, location
+    //name, section, professor, requirement, type, days, start, end, location
     private ArrayList<Course> extractCourses(ArrayList<ArrayList<String>> data) {
         ArrayList<Course> courses = new ArrayList<Course>();
 
