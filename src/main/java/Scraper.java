@@ -13,6 +13,7 @@ public class Scraper {
     private static final String REMOVE_NBSP = "\u00a0";
     private Document doc;
     ArrayList<String> links;
+    private String date;
 
     public enum Quarter {
         FALL("Fall"),
@@ -78,6 +79,10 @@ public class Scraper {
             }
             doc = getQuarter(Jsoup.connect(nextLink).get(), target);
         }
+        else {
+            //save date
+            date = elements.get(0).text();
+        }
         return doc;
     }
 
@@ -102,18 +107,12 @@ public class Scraper {
         String targetLink = getSpecificLink(new String[] {IMPORTANT_LINKS[0], college});
 
         //get the html from the classes
-        String[] classes = {"courseName", "courseSection", "personName", "courseType",
-                "courseDays", "startTime", "endTime", "location"};
+        String[] classes = {"courseName", "courseSection", "personName", "courseRequirement",
+                "courseType", "courseDays", "startTime", "endTime", "location"};
         ArrayList<ArrayList<String>> data = getValues(targetLink, classes);
 
         return extractCourses(data);
     }
-
-    //    TODO: implement this
-//    public Teacher getTeacher(String dept, String name) {
-//
-//    }
-//
 
     //gathers all the GEs offered
     public ArrayList<Course> getGEs() {
@@ -134,8 +133,8 @@ public class Scraper {
                 }
             }
 
-            String[] classes = {"courseName", "courseSection", "personName", "courseType",
-                    "courseDays", "startTime", "endTime", "location", "courseRequirement"};
+            String[] classes = {"courseName", "courseSection", "personName", "courseRequirement",
+                    "courseType", "courseDays", "startTime", "endTime", "location", };
             ArrayList<ArrayList<String>> data;
             //get the courses for each link
             for (String geLink : geLinks) {
@@ -156,6 +155,7 @@ public class Scraper {
         for (int iter = 0; iter < data.get(0).size(); iter++) {
             //don't add if the course has no professor listed
             if (data.get(2).get(iter).replace(REMOVE_NBSP, "").length() > 0) {
+                String[] profName = data.get(2).get(iter).split(", ");
                 courses.add(new Course(
                         data.get(0).get(iter),
                         Integer.parseInt(data.get(1).get(iter)),
@@ -212,17 +212,31 @@ public class Scraper {
     }
 
     //saves the current document's html to a file (overwrites the file)
-    public void saveToFile(String filename) {
+    public void saveToFile(String filename, String url) {
         try {
             File f = new File(filename);
             if (!f.exists())
                 f.createNewFile();
             FileOutputStream output = new FileOutputStream(f);
-            output.write(doc.html().getBytes());
+            output.write(Jsoup.connect(url).maxBodySize(0).get().html().getBytes());
 //            System.out.print(doc.html());
         }
         catch (IOException io) {
             io.printStackTrace();
         }
     }
+
+    public void saveAssignmentshtml() {
+        for (String link : links) {
+            if (link.contains(IMPORTANT_LINKS[0])) {
+                String name = link.split("_")[1].replaceAll("\\d+-", "") + "_assn.txt";
+                saveToFile(name, link);
+            }
+        }
+    }
+
+    // TODO:
+    // add quarter, year to database -- year and date
+    // split name into - dept and course number
+    //       professor into first and last name
 }
