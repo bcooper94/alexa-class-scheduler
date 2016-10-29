@@ -13,7 +13,7 @@ public class Scraper {
     private static final String REMOVE_NBSP = "\u00a0";
     private Document doc;
     ArrayList<String> links;
-    private String date;
+    private String[] date = new String[2]; //stored as quarter, year
 
     public enum Quarter {
         FALL("Fall"),
@@ -81,7 +81,8 @@ public class Scraper {
         }
         else {
             //save date
-            date = elements.get(0).text();
+            date[0] = elements.get(0).text().split(" ")[0];
+            date[1] = elements.get(0).text().split(" ")[2];
         }
         return doc;
     }
@@ -155,16 +156,23 @@ public class Scraper {
         for (int iter = 0; iter < data.get(0).size(); iter++) {
             //don't add if the course has no professor listed
             if (data.get(2).get(iter).replace(REMOVE_NBSP, "").length() > 0) {
-                String[] profName = data.get(2).get(iter).split(", ");
-                courses.add(new Course(
-                        data.get(0).get(iter),
-                        Integer.parseInt(data.get(1).get(iter)),
-                        data.get(2).get(iter),
-                        data.get(3).get(iter),
-                        data.get(4).get(iter),
-                        data.get(5).get(iter),
-                        data.get(6).get(iter),
-                        data.get(7).get(iter)));
+                String[] courseName = data.get(0).get(iter).split(" ");
+                String[] profName = data.get(2).get(iter).split(" ");
+                Course c = new Course();
+                c.department = courseName[0];
+                c.courseNumber = Integer.parseInt(courseName[1]);
+                c.section = Integer.parseInt(data.get(1).get(iter));
+                c.profFirstName = profName[1];
+                c.profLastName = profName[0].replace(",", "");
+                c.requirement = data.get(3).get(iter);
+                c.type = data.get(4).get(iter);
+                c.days = data.get(5).get(iter);
+                c.start = data.get(6).get(iter);
+                c.end = data.get(7).get(iter);
+                c.quarter = date[0];
+                c.year = Integer.parseInt(date[1]);
+                c.location = data.get(8).get(iter);
+                courses.add(c);
             }
         }
         return courses;
@@ -234,9 +242,4 @@ public class Scraper {
             }
         }
     }
-
-    // TODO:
-    // add quarter, year to database -- year and date
-    // split name into - dept and course number
-    //       professor into first and last name
 }

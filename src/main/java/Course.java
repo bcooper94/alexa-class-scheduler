@@ -39,5 +39,6 @@ public class Course {
       this.quarter = quarter;
       this.year = year;
       this.location = location;
+      this.courseNumber = courseNumber;
    }
 }
