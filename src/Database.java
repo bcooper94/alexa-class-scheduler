@@ -22,16 +22,20 @@ public class Database {
          Statement statement = connection.createStatement();
          statement.execute(
             "CREATE TABLE IF NOT EXISTS Courses (" +
-            "   name TEXT," +
+            "   department TEXT," +
+            "   course_number TEXT," +
             "   section INTEGER," +
-            "   professor TEXT," +
+            "   prof_first_name TEXT," +
+            "   prof_last_name TEXT," +
             "   requirement TEXT," +
             "   type TEXT," +
             "   days TEXT," +
             "   start TEXT," +
             "   end TEXT," +
+            "   quarter TEXT," +
+            "   year INTEGER," +
             "   location TEXT," +
-            "   PRIMARY KEY(name, section)" +
+            "   PRIMARY KEY(department, course_number, section, quarter, year)" +
             ");");
           statement.close();
       } catch (Exception ex) {
@@ -42,18 +46,22 @@ public class Database {
    public void create(Course course) {
        try {
           PreparedStatement preparedStatement = connection.prepareStatement(
-             "INSERT INTO Courses (name, section, professor, requirement, type, days, start, end, location) " +
-             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);"
+             "INSERT INTO Courses (department, course_number, section, prof_first_name, prof_last_name, requirement, type, days, start, end, quarter, year, location) " +
+             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
           );
-          preparedStatement.setString(1, course.name); 
-          preparedStatement.setInt(2, course.section);
-          preparedStatement.setString(3, course.professor);
-          preparedStatement.setString(4, course.requirement);
-          preparedStatement.setString(5, course.type);
-          preparedStatement.setString(6, course.days);
-          preparedStatement.setString(7, course.start);
-          preparedStatement.setString(8, course.end);
-          preparedStatement.setString(9, course.location);
+          preparedStatement.setString(1, course.department); 
+          preparedStatement.setInt(2, course.courseNumber);
+          preparedStatement.setInt(3, course.section);
+          preparedStatement.setString(4, course.profFirstName);
+          preparedStatement.setString(5, course.profLastName);
+          preparedStatement.setString(6, course.requirement);
+          preparedStatement.setString(7, course.type);
+          preparedStatement.setString(8, course.days);
+          preparedStatement.setString(9, course.start);
+          preparedStatement.setString(10, course.end);
+          preparedStatement.setString(11, course.quarter);
+          preparedStatement.setInt(12, course.year);
+          preparedStatement.setString(13, course.location);
           preparedStatement.execute();
           preparedStatement.close();
        } catch (Exception ex) {
@@ -68,14 +76,18 @@ public class Database {
          ResultSet resultSet = statement.executeQuery("SELECT * FROM Courses;");
          while(resultSet.next()) {
             courseList.add(new Course(
-               resultSet.getString("name"),
+               resultSet.getString("department"),
+               resultSet.getInt("course_number"),
                resultSet.getInt("section"),
-               resultSet.getString("professor"),
+               resultSet.getString("prof_first_name"),
+               resultSet.getString("prof_last_name"),
                resultSet.getString("requirement"),
                resultSet.getString("type"),
                resultSet.getString("days"),
                resultSet.getString("start"),
                resultSet.getString("end"),
+               resultSet.getString("quarter"),
+               resultSet.getInt("year"),
                resultSet.getString("location"))
             );
          }
@@ -117,14 +129,14 @@ public class Database {
 
    public void delete(Course course) {
       try {
-         PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM Courses WHERE name = ? AND section = ?");
-         preparedStatement.setString(1, course.name);
-         preparedStatement.setInt(2, course.section);
+         PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM Courses WHERE department = ? AND course_number = ? AND section = ?");
+         preparedStatement.setString(1, course.department);
+         preparedStatement.setInt(2, course.courseNumber);
+         preparedStatement.setInt(3, course.section);
          preparedStatement.execute();
          preparedStatement.close(); 
       } catch (Exception ex) {
          ex.printStackTrace();
       }
-     
    }
 }
