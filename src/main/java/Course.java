@@ -41,4 +41,20 @@ public class Course {
       this.location = location;
       this.courseNumber = courseNumber;
    }
+
+   public boolean equals(Course c) {
+      return this.department.equals(c.department) &&
+              this.section == section &&
+              this.profFirstName.equals(c.profFirstName) &&
+              this.profLastName.equals(c.profLastName) &&
+              this.requirement.equals(c.requirement) &&
+              this.type.equals(c.type) &&
+              this.days.equals(c.days) &&
+              this.start.equals(c.start) &&
+              this.end.equals(c.end) &&
+              this.quarter.equals(c.quarter) &&
+              this.year == year &&
+              this.location.equals(c.location) &&
+              this.courseNumber == courseNumber;
+   }
 }
