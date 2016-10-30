@@ -6,11 +6,13 @@ public class Tests {
   public void createTest() {
      Database db = new Database();
      Course c = new Course();
-     c.name = "Test 1";
+     c.department = "CSC";
+     c.courseNumber = 101;
      c.section = 1;
      db.create(c);
      db.read().forEach((rc) -> {
-        assertEquals("Test 1", rc.name);
+        assertEquals("CSC", rc.department);
+        assertEquals(101, rc.courseNumber);
         assertEquals(1, rc.section);
      });
      db.delete(c);
