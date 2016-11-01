@@ -44,7 +44,7 @@ public class Course {
 
    public boolean equals(Course c) {
       return this.department.equals(c.department) &&
-              this.section == section &&
+              this.section == c.section &&
               this.profFirstName.equals(c.profFirstName) &&
               this.profLastName.equals(c.profLastName) &&
               this.requirement.equals(c.requirement) &&
@@ -53,8 +53,27 @@ public class Course {
               this.start.equals(c.start) &&
               this.end.equals(c.end) &&
               this.quarter.equals(c.quarter) &&
-              this.year == year &&
+              this.year == c.year &&
               this.location.equals(c.location) &&
-              this.courseNumber == courseNumber;
+              this.courseNumber == c.courseNumber;
+   }
+
+   @Override
+   public String toString() {
+      return "Course{" +
+              "department='" + department + '\'' +
+              ", courseNumber=" + courseNumber +
+              ", section=" + section +
+              ", profFirstName='" + profFirstName + '\'' +
+              ", profLastName='" + profLastName + '\'' +
+              ", requirement='" + requirement + '\'' +
+              ", type='" + type + '\'' +
+              ", days='" + days + '\'' +
+              ", start='" + start + '\'' +
+              ", end='" + end + '\'' +
+              ", quarter='" + quarter + '\'' +
+              ", year=" + year +
+              ", location='" + location + '\'' +
+              '}';
    }
 }

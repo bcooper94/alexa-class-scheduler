@@ -39,6 +39,17 @@ public class ScraperTests {
 
     @Test
     public void testSpring() {
-        assert "TODO".equals("This hasn't been implemented");
+        Scraper scraper = new Scraper("Spring");
+        ArrayList<Course> courses = scraper.getCourseList("CSM");
+        Course first = courses.get(0);
+        Course last = courses.get(courses.size() - 1);
+
+        Course actualFirst = new Course("BIO", 400, 2, "Nikki", "Adams", "\u00a0", "Ind", "\u00a0", "\u00a0", "\u00a0", "Spring", 2017, "\u00a0");
+        Course actualLast = new Course("CHEM", 331, 2, "Matthew", "Zoerb", "\u00a0", "Lab", "TR", "12:10 PM", "03:00 PM", "Spring", 2017, "180-0376");
+
+        System.out.println(first);
+        System.out.println(actualFirst);
+        assert first.equals(actualFirst);
+        assert last.equals(actualLast);
     }
 }
