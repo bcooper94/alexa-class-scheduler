@@ -8,6 +8,11 @@ public class ParserDriver {
         ArrayList<Course> courses = scraper.getCourseList("CENG");
         ArrayList<Course> ges = scraper.getGEs();
 
+        Database db = new Database();
+        //drop table
+        for (Course c : courses)
+            db.create(c);
+
 //        for(Course c : courses) {
 //            System.out.println(
 //                    "dept: " + c.department + " " +
