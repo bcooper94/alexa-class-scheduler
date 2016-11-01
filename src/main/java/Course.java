@@ -41,4 +41,6 @@ public class Course {
       this.location = location;
       this.courseNumber = courseNumber;
    }
+
+  
 }

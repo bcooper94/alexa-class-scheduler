@@ -3,16 +3,74 @@
 *
 * @author  Joey Wilson
 */
-import java.sql.Connection;
+
+/*import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.sql.PreparedStatement;
+import java.sql.PreparedStatement;*/
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Arrays;
+
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.dynamodbv2.model.AttributeDefinition;
+import com.amazonaws.services.dynamodbv2.model.KeySchemaElement;
+import com.amazonaws.services.dynamodbv2.model.KeyType;
+import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
+import com.amazonaws.services.dynamodbv2.model.ScalarAttributeType;
 
 public class Database {
+
+   AmazonDynamoDBClient client; 
+   DynamoDB dynamoDB;
+
+   public Database () {
+      client = new AmazonDynamoDBClient();
+      client.withEndpoint("http://localhost:8000");
+      dynamoDB = new DynamoDB(client);
+      try {
+         Table table = dynamoDB.createTable("CoursesTest", 
+            Arrays.asList(new KeySchemaElement("id", KeyType.HASH)),
+            Arrays.asList(
+               new AttributeDefinition("id", ScalarAttributeType.N)
+            ),
+            new ProvisionedThroughput(1L, 1L)
+         );
+         table.waitForActive();
+         System.out.println("Success. Table status: " + table.getDescription().getTableStatus());
+      } catch (Exception ex) {
+         System.err.println("Unable to create table: ");
+         ex.printStackTrace();
+      }
+   }
+
+   public void create (List<Course> course) {
+      Map<String, Object> infoMap = new HashMap<String, Object>();
+      infoMap.put("plot",  "Nothing happens at all.");
+      infoMap.put("rating",  0);
+      try {
+         System.out.println("Adding a new item...");
+         PutItemOutcome outcome = table.putItem(new Item()
+            .withPrimaryKey("year", year, "title", title)
+            .withMap("info", infoMap));
+         System.out.println("PutItem succeeded:\n" + outcome.getPutItemResult());
+      } catch (Exception ex) {
+         System.err.println("Unable to add item: " + year + " " + title);
+         ex.printStackTrace();
+      }
+   }
+
+   public List<Course> read () {
+      return null;
+   } 
+}
+
+/*public class Database {
    
    private Connection connection;
 
@@ -98,7 +156,7 @@ public class Database {
       return courseList;
    }
 
-   /*public List<Course> read(Course course) {
+   public List<Course> read(Course course) {
       List<Course> courseList = new ArrayList<Course>();
       try {
          PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Courses WHERE name = ?");
@@ -121,7 +179,7 @@ public class Database {
          ex.printStackTrace();
       }
       return courseList; 
-   }*/
+   }
 
    public void update(Course oldCourse, Course newCourse) {
       // TODO
@@ -139,4 +197,4 @@ public class Database {
          ex.printStackTrace();
       }
    }
-}
+}*/
