@@ -1,0 +1,40 @@
+{
+  "intents": [
+    {
+      "intent": "CourseQuery",
+      "slots": [
+        {
+          "name": "Department",
+          "type": "LIST_OF_DEPTS"
+        },
+        {
+          "name": "College",
+          "type": "LIST_OF_COLLEGES"
+        },
+        {
+          "name": "CourseNumber",
+          "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "CourseName",
+          "type": "LIST_OF_COURSE_NAMES"
+        },
+        {
+          "name": "StartTime",
+          "type": "AMAZON.TIME"
+        },
+        {
+          "name": "EndTime",
+          "type": "AMAZON.TIME"
+        },
+        {
+          "name": "Quarter",
+          "type": "LIST_OF_QUARTERS"
+        }
+      ]
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    }
+  ]
+}

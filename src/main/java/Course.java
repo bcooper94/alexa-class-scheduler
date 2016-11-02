@@ -8,9 +8,17 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class Course {
+<<<<<<< HEAD
    public String department;   
    public String courseNumber;
    public String section;
+=======
+
+   public int courseId;
+   public String department;
+   public int courseNumber;
+   public int section;
+>>>>>>> bd766001d1dc882d31ee6582e89e2610396f463a
    public String profFirstName;
    public String profLastName;
    public String requirement;
@@ -21,16 +29,24 @@ public class Course {
    public String quarter;
    public String year;
    public String location;
-   
+
    public Course() {
- 
+
    }
 
+<<<<<<< HEAD
    public Course(String department, String courseNumber, String section, 
                  String profFirstName, String profLastName, 
                  String requirement, String type, String days, 
                  String start, String end, String quarter, 
                  String year, String location) {
+=======
+   public Course(String department, int courseNumber, int section,
+                 String profFirstName, String profLastName,
+                 String requirement, String type, String days,
+                 String start, String end, String quarter,
+                 int year, String location) {
+>>>>>>> bd766001d1dc882d31ee6582e89e2610396f463a
       this.department = department;
       this.section = section;
       this.profFirstName = profFirstName;
