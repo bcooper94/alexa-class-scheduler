@@ -11,10 +11,10 @@ import java.sql.Statement;
 import java.sql.PreparedStatement;*/
 
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.Arrays;
 
+// Create
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Table;
@@ -23,6 +23,22 @@ import com.amazonaws.services.dynamodbv2.model.KeySchemaElement;
 import com.amazonaws.services.dynamodbv2.model.KeyType;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.model.ScalarAttributeType;
+import com.amazonaws.services.dynamodbv2.model.ResourceInUseException;
+
+// Insert
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.PrimaryKey;
+import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
+import com.amazonaws.services.dynamodbv2.document.Table;
+
+// Delete
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
 
 public class Database {
 
@@ -43,6 +59,8 @@ public class Database {
          );
          table.waitForActive();
          System.out.println("Success. Table status: " + table.getDescription().getTableStatus());
+      } catch (ResourceInUseException ex) {
+         System.out.println("Table already exists, proceeding ...");
       } catch (Exception ex) {
          System.err.println("Unable to create table: ");
          ex.printStackTrace();
@@ -50,23 +68,54 @@ public class Database {
    }
 
    public void create (List<Course> course) {
-      Map<String, Object> infoMap = new HashMap<String, Object>();
-      infoMap.put("plot",  "Nothing happens at all.");
-      infoMap.put("rating",  0);
+      //TODO
+   }
+   public void create (Course course) {
+      Table table = dynamoDB.getTable("CoursesTest");
+      Map<String, Object> infoMap = course.toMap(); 
       try {
          System.out.println("Adding a new item...");
          PutItemOutcome outcome = table.putItem(new Item()
-            .withPrimaryKey("year", year, "title", title)
+            .withPrimaryKey("id", 1)
             .withMap("info", infoMap));
          System.out.println("PutItem succeeded:\n" + outcome.getPutItemResult());
       } catch (Exception ex) {
-         System.err.println("Unable to add item: " + year + " " + title);
+         System.err.println("Unable to add item:");
          ex.printStackTrace();
       }
    }
 
    public List<Course> read () {
-      return null;
+      Table table = dynamoDB.getTable("CoursesTest");
+      Course course = new Course();
+      GetItemSpec spec = new GetItemSpec().withPrimaryKey("id",1);
+      try {
+         System.out.println("Attempting to read the item...");
+         Item outcome = table.getItem(spec);
+         /*course = new Course(
+            outcome.getString("department"),
+            outcome.getString("courseNumber"),
+            outcome.getString("section"),
+            outcome.getString("profFirstName"),
+            outcome.getString("profLastName"),
+            outcome.getString("requirement"),
+            outcome.getString("type"),
+            outcome.getString("days"),
+            outcome.getString("start"),
+            outcome.getString("end"),
+            outcome.getString("quarter"),
+            outcome.getString("year"),
+            outcome.getString("location")
+         );*/
+         System.out.println("GetItem succeeded: " + outcome);
+         System.out.println("GetItem succeeded: " + outcome.getString("department"));
+         System.out.println("GetItem succeeded: " + outcome.getString("courseNumber"));
+         System.out.println("GetItem succeeded: " + outcome.getString("section"));
+      } catch (Exception ex) {
+         System.err.println("Unable to read item:");
+         ex.printStackTrace();
+      }
+      return Arrays.asList(course);
    } 
 }
 
