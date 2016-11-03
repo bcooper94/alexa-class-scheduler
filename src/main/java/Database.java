@@ -10,9 +10,11 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.PreparedStatement;*/
 
-import java.util.List;
-import java.util.Map;
 import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 // Create
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
@@ -33,17 +35,23 @@ import com.amazonaws.services.dynamodbv2.document.PrimaryKey;
 import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
 
-// Delete
+// Read
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
+import com.amazonaws.services.dynamodbv2.document.ItemCollection;
+import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
+import com.amazonaws.services.dynamodbv2.document.QueryOutcome;
+import com.amazonaws.services.dynamodbv2.document.spec.ScanSpec;
+import com.amazonaws.services.dynamodbv2.document.ScanOutcome;
 
 public class Database {
 
    AmazonDynamoDBClient client; 
    DynamoDB dynamoDB;
+   int id;
 
    public Database () {
       client = new AmazonDynamoDBClient();
@@ -65,10 +73,13 @@ public class Database {
          System.err.println("Unable to create table: ");
          ex.printStackTrace();
       }
+      id = 0;
    }
 
    public void create (List<Course> course) {
-      //TODO
+      course.forEach( (c) -> {
+         this.create(c);
+      });    
    }
    public void create (Course course) {
       Table table = dynamoDB.getTable("CoursesTest");
@@ -76,46 +87,58 @@ public class Database {
       try {
          System.out.println("Adding a new item...");
          PutItemOutcome outcome = table.putItem(new Item()
-            .withPrimaryKey("id", 1)
+            .withPrimaryKey("id", id)
             .withMap("info", infoMap));
+         id++;
          System.out.println("PutItem succeeded:\n" + outcome.getPutItemResult());
       } catch (Exception ex) {
          System.err.println("Unable to add item:");
          ex.printStackTrace();
       }
    }
-
    public List<Course> read () {
       Table table = dynamoDB.getTable("CoursesTest");
-      Course course = new Course();
-      GetItemSpec spec = new GetItemSpec().withPrimaryKey("id",1);
+      List<Course> courses = new ArrayList<Course>();
+      //GetItemSpec spec = new GetItemSpec().withPrimaryKey("id",1);
       try {
          System.out.println("Attempting to read the item...");
-         Item outcome = table.getItem(spec);
-         /*course = new Course(
-            outcome.getString("department"),
-            outcome.getString("courseNumber"),
-            outcome.getString("section"),
-            outcome.getString("profFirstName"),
-            outcome.getString("profLastName"),
-            outcome.getString("requirement"),
-            outcome.getString("type"),
-            outcome.getString("days"),
-            outcome.getString("start"),
-            outcome.getString("end"),
-            outcome.getString("quarter"),
-            outcome.getString("year"),
-            outcome.getString("location")
-         );*/
-         System.out.println("GetItem succeeded: " + outcome);
-         System.out.println("GetItem succeeded: " + outcome.getString("department"));
-         System.out.println("GetItem succeeded: " + outcome.getString("courseNumber"));
-         System.out.println("GetItem succeeded: " + outcome.getString("section"));
+         //Map<String, String> outcome = table.getItem(spec).getMap("info");
+         Map<String, String> nameMap = new HashMap<String, String>();
+         nameMap.put("#year", "year");
+
+         Map<String, Object> valueMap = new HashMap<String, Object>();
+         valueMap.put(":v_year", "2000"); 
+
+         ScanSpec spec = new ScanSpec()
+            .withFilterExpression("#year > :v_year")
+            .withNameMap(nameMap)
+            .withValueMap(valueMap);
+
+         ItemCollection<ScanOutcome> items = table.scan(spec);
+         items.forEach((item) -> {
+            //System.out.println(item.toJSONPretty());
+            Map<String, String> outcome = item.getMap("info");
+            courses.add(new Course(
+               outcome.get("department"),
+               outcome.get("courseNumber"),
+               outcome.get("section"),
+               outcome.get("profFirstName"),
+               outcome.get("profLastName"),
+               outcome.get("requirement"),
+               outcome.get("type"),
+               outcome.get("days"),
+               outcome.get("start"),
+               outcome.get("end"),
+               outcome.get("quarter"),
+               outcome.get("year"),
+               outcome.get("location")
+            ));
+         });
       } catch (Exception ex) {
          System.err.println("Unable to read item:");
          ex.printStackTrace();
       }
-      return Arrays.asList(course);
+      return courses;
    } 
 }
 
