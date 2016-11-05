@@ -1,0 +1,1 @@
+SectionList list the {Type} for {Department} {AMAZON.NUMBER}

@@ -58,11 +58,10 @@ public class SchedulerSpeechlet implements Speechlet {
         String intentName = (intent != null) ? intent.getName() : null;
 
         if ("CourseListQuery".equals(intentName)) {
-            // TODO: add getCourseListResponse method
-            return null;
+            return getCourseListResponse(intent, session);
         }
         else if ("CourseDetailsQuery".equals(intentName)) {
-            return getCourseListResponse(intent, session);
+            return null;
         }
         else if ("SectionDetailsQuery".equals(intentName)) {
             // TODO: add getSectionDetailsResponse

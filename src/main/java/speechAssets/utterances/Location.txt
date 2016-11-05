@@ -1,0 +1,5 @@
+Location list the locations for {Department} {AMAZON.NUMBER}
+Location list the locations for {Department} {AMAZON.NUMBER} {Quarter}
+Location list the locations for {Department} {AMAZON.NUMBER} {Quarter} {AMAZON.DATE}
+Location list the locations for {Department} {AMAZON.NUMBER} {Type} {Quarter}
+Location list the locations for {Department} {AMAZON.NUMBER} {Type} {Quarter} {AMAZON.DATE}
