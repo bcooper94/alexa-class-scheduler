@@ -1,0 +1,2 @@
+ProfessorIntent list the courses taught by {Professor}
+ProfessorIntent list the professors who teach {Department} {CourseNum}

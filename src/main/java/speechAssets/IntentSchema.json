@@ -4,27 +4,27 @@
       "intent": "Conflicts",
       "slots": [
         {
-          "name": "Department1",
+          "name": "DepartmentOne",
           "type": "LIST_OF_DEPTS"
         },
         {
-          "name": "CourseNum1",
+          "name": "CourseNumOne",
           "type": "AMAZON.NUMBER"
         },
         {
-          "name": "Section1",
+          "name": "SectionOne",
           "type": "AMAZON.NUMBER"
         },
         {
-          "name": "Department2",
+          "name": "DepartmentTwo",
           "type": "LIST_OF_DEPTS"
         },
         {
-          "name": "CourseNum2",
+          "name": "CourseNumTwo",
           "type": "AMAZON.NUMBER"
         },
         {
-          "name": "Section2",
+          "name": "SectionTwo",
           "type": "AMAZON.NUMBER"
         }
       ]
@@ -131,7 +131,7 @@
       ]
     },
     {
-      "intent": "Professor",
+      "intent": "ProfessorIntent",
       "slots": [
         {
           "name": "Professor",
