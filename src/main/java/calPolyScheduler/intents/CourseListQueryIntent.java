@@ -15,12 +15,12 @@ import java.util.Map;
 /**
  * Created by brandon on 11/1/16.
  */
-public class CourseDetailsQueryIntent extends SchedulerIntent {
-    private static Logger log = LoggerFactory.getLogger(CourseDetailsQueryIntent.class);
+public class CourseListQueryIntent extends SchedulerIntent {
+    private static Logger log = LoggerFactory.getLogger(CourseListQueryIntent.class);
 
     private Map<String, Slot> slots;
 
-    public CourseDetailsQueryIntent(Intent intent, Session session) {
+    public CourseListQueryIntent(Intent intent, Session session) {
         super(intent, session);
         this.slots = new HashMap<>();
 
@@ -35,12 +35,12 @@ public class CourseDetailsQueryIntent extends SchedulerIntent {
             }
         }
         slotStr.append("]");
-        log.debug("CourseDetailsQueryIntent slots={}", slotStr);
+        log.debug("CourseListQueryIntent slots={}", slotStr);
     }
 
     @Override
     public SpeechletResponse createResponse() {
-        log.info("getCourseQueryResponse");
+        log.info("getCourseListResponse");
         String responseText = "Testing get course query intent";
 
         SimpleCard card = new SimpleCard();

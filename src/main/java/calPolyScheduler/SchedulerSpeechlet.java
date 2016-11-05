@@ -9,7 +9,7 @@
  */
 package calPolyScheduler;
 
-import calPolyScheduler.intents.CourseDetailsQueryIntent;
+import calPolyScheduler.intents.CourseListQueryIntent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,7 +62,7 @@ public class SchedulerSpeechlet implements Speechlet {
             return null;
         }
         else if ("CourseDetailsQuery".equals(intentName)) {
-            return getCourseDetailsResponse(intent, session);
+            return getCourseListResponse(intent, session);
         }
         else if ("SectionDetailsQuery".equals(intentName)) {
             // TODO: add getSectionDetailsResponse
@@ -84,8 +84,8 @@ public class SchedulerSpeechlet implements Speechlet {
         // any cleanup logic goes here
     }
 
-    private SpeechletResponse getCourseDetailsResponse(Intent intent, Session session) {
-        return new CourseDetailsQueryIntent(intent, session).createResponse();
+    private SpeechletResponse getCourseListResponse(Intent intent, Session session) {
+        return new CourseListQueryIntent(intent, session).createResponse();
     }
 
     /**
