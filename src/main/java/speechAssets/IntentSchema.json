@@ -4,17 +4,28 @@
       "intent": "Conflicts",
       "slots": [
         {
-          "name": "Department",
+          "name": "Department1",
           "type": "LIST_OF_DEPTS"
         },
         {
-          "name": "CourseNum",
+          "name": "CourseNum1",
           "type": "AMAZON.NUMBER"
         },
         {
-          "name": "Section",
+          "name": "Section1",
           "type": "AMAZON.NUMBER"
-        }
+        },
+        {
+          "name": "Department2",
+          "type": "LIST_OF_DEPTS"
+        },
+        {
+          "name": "CourseNum2",
+          "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "Section2",
+          "type": "AMAZON.NUMBER"
       ]
     },
     {
@@ -64,6 +75,32 @@
         {
           "name": "SingleTime",
           "type": "AMAZON.TIME"
+        }
+      ]
+    },
+    {
+      "intent": "GE",
+      "slots": [
+        {
+          "name": "CourseRequirement",
+          "type": "LIST_OF_TYPES"
+        }
+      ]
+    },
+    {
+      "intent": "HierarchyList",
+      "slots": [
+        {
+          "name": "College",
+          "type": "LIST_OF_COLLEGES"
+        },
+        {
+          "name": "Department",
+          "type": "LIST_OF_DEPTS"
+        },
+        {
+          "name": "CourseNum",
+          "type": "AMAZON.NUMBER"
         }
       ]
     },
