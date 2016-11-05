@@ -160,8 +160,8 @@ public class Scraper {
                 String[] profName = data.get(2).get(iter).split(" ");
                 Course c = new Course();
                 c.department = courseName[0];
-                c.courseNumber = Integer.valueOf(courseName[1]);
-                c.section = Integer.valueOf(data.get(1).get(iter));
+                c.courseNumber = courseName[1];
+                c.section = data.get(1).get(iter);
                 c.profFirstName = profName[1];
                 c.profLastName = profName[0].replace(",", "");
                 c.requirement = data.get(3).get(iter);
@@ -170,7 +170,7 @@ public class Scraper {
                 c.start = data.get(6).get(iter);
                 c.end = data.get(7).get(iter);
                 c.quarter = date[0];
-                c.year = Integer.valueOf(date[1]);
+                c.year = date[1];
                 c.location = data.get(8).get(iter);
                 courses.add(c);
             }
