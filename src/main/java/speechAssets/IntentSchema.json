@@ -1,23 +1,57 @@
 {
   "intents": [
     {
-      "intent": "CourseListQuery",
+      "intent": "Conflicts",
       "slots": [
         {
           "name": "Department",
           "type": "LIST_OF_DEPTS"
         },
         {
-          "name": "College",
-          "type": "LIST_OF_COLLEGES"
-        },
-        {
-          "name": "CourseNumber",
+          "name": "CourseNum",
           "type": "AMAZON.NUMBER"
         },
         {
-          "name": "CourseName",
-          "type": "LIST_OF_COURSE_NAMES"
+          "name": "Section",
+          "type": "AMAZON.NUMBER"
+        }
+      ]
+    },
+    {
+      "intent": "CourseDaysOfWeek",
+      "slots": [
+        {
+          "name": "Day",
+          "type": "DAYS_OF_WEEK"
+        },
+        {
+          "name": "Department",
+          "type": "LIST_OF_DEPTS"
+        },
+        {
+          "name": "CourseNum",
+          "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "Section",
+          "type": "AMAZON.NUMBER"
+        }
+      ]
+    },
+    {
+      "intent": "CourseTime",
+      "slots": [
+        {
+          "name": "Department",
+          "type": "LIST_OF_DEPTS"
+        },
+        {
+          "name": "CourseNum",
+          "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "BeforeAfter",
+          "type": "BEFORE_AFTER"
         },
         {
           "name": "StartTime",
@@ -28,18 +62,10 @@
           "type": "AMAZON.TIME"
         },
         {
-          "name": "Quarter",
-          "type": "LIST_OF_QUARTERS"
+          "name": "SingleTime",
+          "type": "AMAZON.TIME"
         }
       ]
-    },
-    {
-      "intent": "CourseDetailsQuery",
-      "slots": []
-    },
-    {
-      "intent": "SectionDetailsQuery",
-      "slots": []
     },
     {
       "intent": "AMAZON.HelpIntent"

@@ -1,4 +1,4 @@
-Conflicts list the conflicts for {Department} {AMAZON.NUMBER} {AMAZON.NUMBER}
-Conflicts do {Department} {AMAZON.NUMBER} {AMAZON.NUMBER} and {Department} {AMAZON.NUMBER} {AMAZON.NUMBER} conflict?
-Conflicts what sections of {Department} {AMAZON.NUMBER} can I take with {Department} {AMAZON.NUMBER} {AMAZON.NUMBER}?
-Conflicts what sections of {Department} {AMAZON.NUMBER} can I take with {Department} {AMAZON.NUMBER}?
+Conflicts list the conflicts for {Department} {CourseNum} {Section}
+Conflicts do {Department} {CourseNum} {Section} and {Department} {CourseNum} {Section} conflict?
+Conflicts what sections of {Department} {CourseNum} can I take with {Department} {CourseNum} {Section}?
+Conflicts what sections of {Department} {CourseNum} can I take with {Department} {CourseNum}?

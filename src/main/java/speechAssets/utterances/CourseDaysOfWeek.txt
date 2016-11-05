@@ -3,5 +3,5 @@ CourseDaysOfWeek list the courses on {Day} {Day}
 CourseDaysOfWeek list the courses on {Day} {Day} {Day}
 CourseDaysOfWeek list the courses on {Day} {Day} {Day} {Day}
 CourseDaysOfWeek list the courses on {Day} {Day} {Day} {Day} {Day}
-CourseDaysOfWeek list the days of the week that {Department} {AMAZON.NUMBER} is offered
-CourseDaysOfWeek list the days of the week that {Department} {AMAZON.NUMBER} section {AMAZON.NUMBER}
+CourseDaysOfWeek list the days of the week that {Department} {CourseNum} is offered
+CourseDaysOfWeek list the days of the week that {Department} {CourseNum} section {Section}
