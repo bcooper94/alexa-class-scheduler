@@ -26,6 +26,7 @@
         {
           "name": "Section2",
           "type": "AMAZON.NUMBER"
+        }
       ]
     },
     {
@@ -93,6 +94,65 @@
         {
           "name": "College",
           "type": "LIST_OF_COLLEGES"
+        },
+        {
+          "name": "Department",
+          "type": "LIST_OF_DEPTS"
+        },
+        {
+          "name": "CourseNum",
+          "type": "AMAZON.NUMBER"
+        }
+      ]
+    },
+    {
+      "intent": "Location",
+      "slots": [
+        {
+          "name": "Department",
+          "type": "LIST_OF_DEPTS"
+        },
+        {
+          "name": "CourseNum",
+          "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "Type",
+          "type": "LIST_OF_TYPES"
+        },
+        {
+          "name": "Quarter",
+          "type": "LIST_OF_QUARTERS"
+        },
+        {
+          "name": "Year",
+          "type": "AMAZON.DATE"
+        }
+      ]
+    },
+    {
+      "intent": "Professor",
+      "slots": [
+        {
+          "name": "Professor",
+          "type": "LIST_OF_PROFESSORS"
+        },
+        {
+          "name": "Department",
+          "type": "LIST_OF_DEPTS"
+        },
+        {
+          "name": "CourseNum",
+          "type": "AMAZON.NUMBER"
+        }
+      ]
+    },
+    {
+      "intent": "SectionList",
+      "slots": [
+        {
+          "name": "Type",
+          "type": "LIST_OF_TYPES"
         },
         {
           "name": "Department",

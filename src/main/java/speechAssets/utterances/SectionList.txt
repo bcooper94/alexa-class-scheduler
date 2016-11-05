@@ -1,1 +1,1 @@
-SectionList list the {Type} for {Department} {AMAZON.NUMBER}
+SectionList list the {Type} for {Department} {CourseNum}

@@ -1,2 +1,2 @@
 Professor list the courses taught by {Professor}
-Professor list the professors who teach {Department} {AMAZON.NUMBER}
+Professor list the professors who teach {Department} {CourseNum}
