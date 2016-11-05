@@ -57,8 +57,16 @@ public class SchedulerSpeechlet implements Speechlet {
         Intent intent = request.getIntent();
         String intentName = (intent != null) ? intent.getName() : null;
 
-        if ("CourseQuery".equals(intentName)) {
-            return getCourseQueryResponse(intent, session);
+        if ("CourseListQuery".equals(intentName)) {
+            // TODO: add getCourseListResponse method
+            return null;
+        }
+        else if ("CourseDetailsQuery".equals(intentName)) {
+            return getCourseDetailsResponse(intent, session);
+        }
+        else if ("SectionDetailsQuery".equals(intentName)) {
+            // TODO: add getSectionDetailsResponse
+            return null;
         }
         else if ("AMAZON.HelpIntent".equals(intentName)) {
             return getHelpResponse();
@@ -76,7 +84,7 @@ public class SchedulerSpeechlet implements Speechlet {
         // any cleanup logic goes here
     }
 
-    private SpeechletResponse getCourseQueryResponse(Intent intent, Session session) {
+    private SpeechletResponse getCourseDetailsResponse(Intent intent, Session session) {
         return new CourseDetailsQueryIntent(intent, session).createResponse();
     }
 
