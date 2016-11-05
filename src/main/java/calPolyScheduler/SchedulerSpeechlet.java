@@ -9,6 +9,7 @@
  */
 package calPolyScheduler;
 
+import calPolyScheduler.intents.ConflictsIntent;
 import calPolyScheduler.intents.CourseListQueryIntent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,21 +58,36 @@ public class SchedulerSpeechlet implements Speechlet {
         Intent intent = request.getIntent();
         String intentName = (intent != null) ? intent.getName() : null;
 
-        if ("CourseListQuery".equals(intentName)) {
-            return getCourseListResponse(intent, session);
-        }
-        else if ("CourseDetailsQuery".equals(intentName)) {
-            return null;
-        }
-        else if ("SectionDetailsQuery".equals(intentName)) {
-            // TODO: add getSectionDetailsResponse
-            return null;
-        }
-        else if ("AMAZON.HelpIntent".equals(intentName)) {
-            return getHelpResponse();
-        }
-        else {
-            throw new SpeechletException("Invalid Intent");
+        switch (intentName) {
+            case "CourseListQuery":
+                return new CourseListQueryIntent(intent, session).createResponse();
+            case "Conflicts":
+                return new ConflictsIntent(intent, session).createResponse();
+            case "CourseDaysOfWeek":
+//                return new CourseDaysOfWeekIntent(intent, session).createResponse();
+                return null;
+            case "CourseTime":
+//                return new CourseTimeIntent(intent, session).createResponse();
+                return null;
+            case "GE":
+//                return new GEIntent(intent, session).createResponse();
+                return null;
+            case "Hierarchy":
+//                return new HierarchyIntent(intent, session).createResponse();
+                return null;
+            case "Location":
+//                return new LocationIntent(intent, session).createResponse();
+                return null;
+            case "Professor":
+//                return new ProfessorIntent(intent, session).createResponse();
+                return null;
+            case "SectionList":
+//                return new SectionListIntent(intent, session).createResponse();
+                return null;
+            case "AMAZON.HelpIntent":
+                return getHelpResponse();
+            default:
+                throw new SpeechletException("Invalid Intent");
         }
     }
 
@@ -81,10 +97,6 @@ public class SchedulerSpeechlet implements Speechlet {
         log.info("onSessionEnded requestId={}, sessionId={}", request.getRequestId(),
                 session.getSessionId());
         // any cleanup logic goes here
-    }
-
-    private SpeechletResponse getCourseListResponse(Intent intent, Session session) {
-        return new CourseListQueryIntent(intent, session).createResponse();
     }
 
     /**
