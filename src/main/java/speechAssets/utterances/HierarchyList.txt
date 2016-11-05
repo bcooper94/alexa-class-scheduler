@@ -1,0 +1,4 @@
+HierarchyList list all of the colleges
+HierarchyList list all of the departments within {College}
+HierarchyList list the courses within {Department}
+HierarchyList list the sections of {Department} {AMAZON.NUMBER}

@@ -1,0 +1,1 @@
+GE list the GEs for {CourseRequirement}

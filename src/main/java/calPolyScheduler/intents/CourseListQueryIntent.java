@@ -44,7 +44,7 @@ public class CourseListQueryIntent extends SchedulerIntent {
         String responseText = "Testing get course query intent";
 
         SimpleCard card = new SimpleCard();
-        card.setTitle("CourseQuery");
+        card.setTitle("Course List");
         card.setContent(responseText);
 
         PlainTextOutputSpeech response = new PlainTextOutputSpeech();
