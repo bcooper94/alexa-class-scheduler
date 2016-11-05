@@ -3,6 +3,7 @@ app.db
 /target
 /build
 
+*.swp
 **/.idea
 **/*.jks
 **/*.pem

@@ -3,12 +3,15 @@
 *
 * @author  Joey Wilson
 */
-public class Course {
 
-   public int courseId;
-   public String department;
-   public int courseNumber;
-   public int section;
+import java.util.Map;
+import java.util.HashMap;
+
+public class Course {
+   
+   public String department;   
+   public String courseNumber;
+   public String section;
    public String profFirstName;
    public String profLastName;
    public String requirement;
@@ -17,18 +20,18 @@ public class Course {
    public String start;
    public String end;
    public String quarter;
-   public int year;
+   public String year;
    public String location;
 
    public Course() {
 
    }
 
-   public Course(String department, int courseNumber, int section,
-                 String profFirstName, String profLastName,
-                 String requirement, String type, String days,
-                 String start, String end, String quarter,
-                 int year, String location) {
+   public Course(String department, String courseNumber, String section, 
+                 String profFirstName, String profLastName, 
+                 String requirement, String type, String days, 
+                 String start, String end, String quarter, 
+                 String year, String location) {
       this.department = department;
       this.section = section;
       this.profFirstName = profFirstName;
@@ -46,18 +49,36 @@ public class Course {
 
    public boolean equals(Course c) {
       return this.department.equals(c.department) &&
-              this.section == c.section &&
-              this.profFirstName.equals(c.profFirstName) &&
-              this.profLastName.equals(c.profLastName) &&
-              this.requirement.equals(c.requirement) &&
-              this.type.equals(c.type) &&
-              this.days.equals(c.days) &&
-              this.start.equals(c.start) &&
-              this.end.equals(c.end) &&
-              this.quarter.equals(c.quarter) &&
-              this.year == c.year &&
-              this.location.equals(c.location) &&
-              this.courseNumber == c.courseNumber;
+             this.section.equals(c.section) &&
+             this.profFirstName.equals(c.profFirstName) &&
+             this.profLastName.equals(c.profLastName) &&
+             this.requirement.equals(c.requirement) &&
+             this.type.equals(c.type) &&
+             this.days.equals(c.days) &&
+             this.start.equals(c.start) &&
+             this.end.equals(c.end) &&
+             this.quarter.equals(c.quarter) &&
+             this.year.equals(c.year) &&
+             this.location.equals(c.location) &&
+             this.courseNumber.equals(c.courseNumber);
+   }
+
+   public Map toMap() {
+      Map<String, Object> map = new HashMap<String, Object>();
+      map.put("department",this.department);
+      map.put("section",this.section);
+      map.put("profFirstName",this.profFirstName);
+      map.put("profLastName",this.profLastName);
+      map.put("requirement",this.requirement);
+      map.put("type",this.type);
+      map.put("days",this.days);
+      map.put("start",this.start);
+      map.put("end",this.end);
+      map.put("quarter",this.quarter);
+      map.put("year",this.year);
+      map.put("location",this.location);
+      map.put("courseNumber",this.courseNumber);
+      return map;
    }
 
    @Override
