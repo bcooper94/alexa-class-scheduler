@@ -9,7 +9,7 @@ public class ParserDriver {
         ArrayList<Course> ges = scraper.getGEs();
 
         Database db = new Database();
-        db.create(courses);
+//        db.create(courses);
 //        db.create(ges);
 
 //        for(Course c : courses) {

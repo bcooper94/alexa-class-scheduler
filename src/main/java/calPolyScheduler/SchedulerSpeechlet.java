@@ -9,6 +9,7 @@
  */
 package calPolyScheduler;
 
+import calPolyScheduler.intents.CourseDetailsQueryIntent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,11 +57,13 @@ public class SchedulerSpeechlet implements Speechlet {
         Intent intent = request.getIntent();
         String intentName = (intent != null) ? intent.getName() : null;
 
-        if ("HelloWorldIntent".equals(intentName)) {
-            return getHelloResponse();
-        } else if ("AMAZON.HelpIntent".equals(intentName)) {
+        if ("CourseQuery".equals(intentName)) {
+            return getCourseQueryResponse(intent, session);
+        }
+        else if ("AMAZON.HelpIntent".equals(intentName)) {
             return getHelpResponse();
-        } else {
+        }
+        else {
             throw new SpeechletException("Invalid Intent");
         }
     }
@@ -71,6 +74,10 @@ public class SchedulerSpeechlet implements Speechlet {
         log.info("onSessionEnded requestId={}, sessionId={}", request.getRequestId(),
                 session.getSessionId());
         // any cleanup logic goes here
+    }
+
+    private SpeechletResponse getCourseQueryResponse(Intent intent, Session session) {
+        return new CourseDetailsQueryIntent(intent, session).createResponse();
     }
 
     /**

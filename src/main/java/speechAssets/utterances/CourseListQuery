@@ -1,0 +1,12 @@
+CourseListQuery list the {Department} classes
+CourseListQuery list the {Department} courses
+CourseListQuery list all {Department} classes
+CourseListQuery list all {Department} courses
+CourseListQuery list the classes in {Department}
+CourseListQuery list the courses in {Department}
+CourseListQuery list all classes in {Department}
+CourseListQuery list all courses in {Department}
+CourseListQuery give me the {Department} classes
+CourseListQuery give me the {Department} courses
+CourseListQuery give me the classes in {Department}
+CourseListQuery give me the courses in {Department}

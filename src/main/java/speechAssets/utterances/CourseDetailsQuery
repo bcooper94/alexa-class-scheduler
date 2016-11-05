@@ -1,0 +1,8 @@
+CourseDetailsQuery when is {Department} {CourseNumber} offered?
+CourseDetailsQuery tell me when {Department} {CourseNumber} is offered
+CourseDetailsQuery when is {Department} {CourseNumber} offered next quarter?
+CourseDetailsQuery tell me when {Department} {CourseNumber} is offered next quarter
+CourseDetailsQuery when is {Department} {CourseNumber} offered during {Quarter}?
+CourseDetailsQuery when is {Department} {CourseNumber} offered during {Quarter} quarter?
+CourseDetailsQuery tell me when {Department} {CourseNumber} is offered during {Quarter}
+CourseDetailsQuery tell me when {Department} {CourseNumber} is offered during {Quarter} quarter

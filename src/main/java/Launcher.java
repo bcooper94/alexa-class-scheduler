@@ -85,8 +85,7 @@ public final class Launcher {
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
         server.setHandler(context);
-        context.addServlet(new ServletHolder(createServlet(new SchedulerSpeechlet())), "/hello");
-//        context.addServlet(new ServletHolder(createServlet(new SessionSpeechlet())), "/session");
+        context.addServlet(new ServletHolder(createServlet(new SchedulerSpeechlet())), "/scheduler");
         server.start();
         server.join();
     }

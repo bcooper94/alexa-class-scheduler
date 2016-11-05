@@ -1,7 +1,7 @@
 {
   "intents": [
     {
-      "intent": "CourseQuery",
+      "intent": "CourseListQuery",
       "slots": [
         {
           "name": "Department",
@@ -32,6 +32,14 @@
           "type": "LIST_OF_QUARTERS"
         }
       ]
+    },
+    {
+      "intent": "CourseDetailsQuery",
+      "slots": []
+    },
+    {
+      "intent": "SectionDetailsQuery",
+      "slots": []
     },
     {
       "intent": "AMAZON.HelpIntent"
