@@ -1,4 +1,4 @@
 Conflicts list the conflicts for {DepartmentOne} {CourseNumOne} {SectionOne}
-Conflicts do {DepartmentOne} {CourseNumOne} {SectionOne} and {DepartmentTwo} {CourseNumTwo} {SectionTwo} conflict?
-Conflicts what sections of {DepartmentOne} {CourseNumOne} can I take with {DepartmentTwo} {CourseNumTwo} {SectionTwo}?
-Conflicts what sections of {DepartmentOne} {CourseNumOne} can I take with {DepartmentTwo} {CourseNumTwo}?
+Conflicts do {DepartmentOne} {CourseNumOne} {SectionOne} and {DepartmentTwo} {CourseNumTwo} {SectionTwo} conflict
+Conflicts what sections of {DepartmentOne} {CourseNumOne} can I take with {DepartmentTwo} {CourseNumTwo} {SectionTwo}
+Conflicts what sections of {DepartmentOne} {CourseNumOne} can I take with {DepartmentTwo} {CourseNumTwo}
