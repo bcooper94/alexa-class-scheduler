@@ -19,7 +19,7 @@ public abstract class SchedulerIntent {
     protected static Logger log = LoggerFactory.getLogger(SchedulerIntent.class);
     protected Intent intent;
     protected Session session;
-    protected Map<String, Slot> slots;
+    protected Map<String, String> slots;
 
     public SchedulerIntent(Intent intent, Session session) {
         this.intent = intent;
@@ -31,12 +31,12 @@ public abstract class SchedulerIntent {
         for (String key : slots.keySet()) {
             curSlot = slots.get(key);
             if (curSlot.getValue() != null) {
-                this.slots.put(key, curSlot);
-                slotStr.append(String.format("%s: %s", key, curSlot.getValue()));
+                this.slots.put(key, curSlot.getValue());
+                slotStr.append(String.format("%s: %s ", key, curSlot.getValue()));
             }
         }
-        slotStr.append("]");
-        log.debug("{} slots={}", this.intent.getName(), slotStr.toString());
+        String slotsLog = slotStr.toString().trim() + "]";
+        log.debug("{} slots={}", this.intent.getName(), slotsLog);
     }
 
     public abstract SpeechletResponse createResponse();

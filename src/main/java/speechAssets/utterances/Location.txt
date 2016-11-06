@@ -1,5 +1,10 @@
 Location list the locations for {Department} {CourseNum}
-Location list the locations for {Department} {CourseNum} {Quarter}
-Location list the locations for {Department} {CourseNum} {Quarter} {Year}
-Location list the locations for {Department} {CourseNum} {Type} {Quarter}
-Location list the locations for {Department} {CourseNum} {Type} {Quarter} {Year}
+Location list the locations for {Department} {CourseNum} for {Quarter}
+Location list the locations for {Department} {CourseNum} for {Quarter} quarter
+Location list the locations for {Department} {CourseNum} for {Quarter} {Year}
+Location list the locations for {Department} {CourseNum} for {Quarter} quarter {Year}
+Location list the locations of the {Type} sections of {Department} {CourseNum}
+Location list the locations of the {Type} sections of {Department} {CourseNum} for {Quarter}
+Location list the locations of the {Type} sections of {Department} {CourseNum} for {Quarter} quarter
+Location list the locations of the {Type} sections of {Department} {CourseNum} for {Quarter} {Year}
+Location list the locations of the {Type} sections of {Department} {CourseNum} for {Quarter} quarter {Year}

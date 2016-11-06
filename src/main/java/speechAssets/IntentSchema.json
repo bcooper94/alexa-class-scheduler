@@ -96,7 +96,7 @@
       "slots": [
         {
           "name": "CourseRequirement",
-          "type": "LIST_OF_TYPES"
+          "type": "LIST_OF_GE_TYPES"
         }
       ]
     },
@@ -114,6 +114,10 @@
         {
           "name": "CourseNum",
           "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "GEType",
+          "type": "LIST_OF_GE_TYPES"
         }
       ]
     },
@@ -130,7 +134,7 @@
         },
         {
           "name": "Type",
-          "type": "LIST_OF_TYPES"
+          "type": "LIST_OF_COURSE_TYPES"
         },
         {
           "name": "Quarter",
@@ -138,7 +142,7 @@
         },
         {
           "name": "Year",
-          "type": "AMAZON.DATE"
+          "type": "AMAZON.NUMBER"
         }
       ]
     },
@@ -164,7 +168,7 @@
       "slots": [
         {
           "name": "Type",
-          "type": "LIST_OF_TYPES"
+          "type": "LIST_OF_COURSE_TYPES"
         },
         {
           "name": "Department",

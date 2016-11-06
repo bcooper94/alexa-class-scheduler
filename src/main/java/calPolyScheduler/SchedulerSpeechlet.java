@@ -65,17 +65,14 @@ public class SchedulerSpeechlet implements Speechlet {
             case "CourseDaysOfWeek":
                 return new CourseDaysOfWeekIntent(intent, session).createResponse();
             case "CourseTime":
-//                return new CourseTimeIntent(intent, session).createResponse();
-                return null;
+                return new CourseTimeIntent(intent, session).createResponse();
             case "GE":
                 return new GEIntent(intent, session).createResponse();
-            case "Hierarchy":
-//                return new HierarchyIntent(intent, session).createResponse();
-                return null;
+            case "HierarchyList":
+                return new HierarchyListIntent(intent, session).createResponse();
             case "Location":
-//                return new LocationIntent(intent, session).createResponse();
-                return null;
-            case "Professor":
+                return new LocationsIntent(intent, session).createResponse();
+            case "ProfessorIntent":
                 return new ProfessorIntent(intent, session).createResponse();
             case "SectionList":
                 return new SectionListIntent(intent, session).createResponse();
