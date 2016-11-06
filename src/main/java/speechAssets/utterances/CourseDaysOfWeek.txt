@@ -1,7 +1,6 @@
-CourseDaysOfWeek list the courses on {Day}
-CourseDaysOfWeek list the courses on {Day} {Day}
-CourseDaysOfWeek list the courses on {Day} {Day} {Day}
-CourseDaysOfWeek list the courses on {Day} {Day} {Day} {Day}
-CourseDaysOfWeek list the courses on {Day} {Day} {Day} {Day} {Day}
+CourseDaysOfWeek list the courses on {DayOne} in {Department}
+CourseDaysOfWeek list the courses on {DayOne} {DayTwo} in {Department}
+CourseDaysOfWeek list the courses on {DayOne} {DayTwo} {DayThree} in {Department}
+CourseDaysOfWeek list the courses on {DayOne} {DayTwo} {DayThree} {DayFour} in {Department}
 CourseDaysOfWeek list the days of the week that {Department} {CourseNum} is offered
 CourseDaysOfWeek list the days of the week that {Department} {CourseNum} section {Section}
