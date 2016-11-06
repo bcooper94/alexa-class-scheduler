@@ -9,8 +9,7 @@
  */
 package calPolyScheduler;
 
-import calPolyScheduler.intents.ConflictsIntent;
-import calPolyScheduler.intents.CourseListQueryIntent;
+import calPolyScheduler.intents.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,14 +63,12 @@ public class SchedulerSpeechlet implements Speechlet {
             case "Conflicts":
                 return new ConflictsIntent(intent, session).createResponse();
             case "CourseDaysOfWeek":
-//                return new CourseDaysOfWeekIntent(intent, session).createResponse();
-                return null;
+                return new CourseDaysOfWeekIntent(intent, session).createResponse();
             case "CourseTime":
 //                return new CourseTimeIntent(intent, session).createResponse();
                 return null;
             case "GE":
-//                return new GEIntent(intent, session).createResponse();
-                return null;
+                return new GEIntent(intent, session).createResponse();
             case "Hierarchy":
 //                return new HierarchyIntent(intent, session).createResponse();
                 return null;
@@ -79,11 +76,9 @@ public class SchedulerSpeechlet implements Speechlet {
 //                return new LocationIntent(intent, session).createResponse();
                 return null;
             case "Professor":
-//                return new ProfessorIntent(intent, session).createResponse();
-                return null;
+                return new ProfessorIntent(intent, session).createResponse();
             case "SectionList":
-//                return new SectionListIntent(intent, session).createResponse();
-                return null;
+                return new SectionListIntent(intent, session).createResponse();
             case "AMAZON.HelpIntent":
                 return getHelpResponse();
             default:

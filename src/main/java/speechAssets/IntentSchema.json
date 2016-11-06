@@ -33,7 +33,19 @@
       "intent": "CourseDaysOfWeek",
       "slots": [
         {
-          "name": "Day",
+          "name": "DayOne",
+          "type": "DAYS_OF_WEEK"
+        },
+        {
+          "name": "DayTwo",
+          "type": "DAYS_OF_WEEK"
+        },
+        {
+          "name": "DayThree",
+          "type": "DAYS_OF_WEEK"
+        },
+        {
+          "name": "DayFour",
           "type": "DAYS_OF_WEEK"
         },
         {
