@@ -1,5 +1,10 @@
-Location list the locations for {Department} {AMAZON.NUMBER}
-Location list the locations for {Department} {AMAZON.NUMBER} {Quarter}
-Location list the locations for {Department} {AMAZON.NUMBER} {Quarter} {AMAZON.DATE}
-Location list the locations for {Department} {AMAZON.NUMBER} {Type} {Quarter}
-Location list the locations for {Department} {AMAZON.NUMBER} {Type} {Quarter} {AMAZON.DATE}
+Location list the locations for {Department} {CourseNum}
+Location list the locations for {Department} {CourseNum} for {Quarter}
+Location list the locations for {Department} {CourseNum} for {Quarter} quarter
+Location list the locations for {Department} {CourseNum} for {Quarter} {Year}
+Location list the locations for {Department} {CourseNum} for {Quarter} quarter {Year}
+Location list the locations of the {Type} sections of {Department} {CourseNum}
+Location list the locations of the {Type} sections of {Department} {CourseNum} for {Quarter}
+Location list the locations of the {Type} sections of {Department} {CourseNum} for {Quarter} quarter
+Location list the locations of the {Type} sections of {Department} {CourseNum} for {Quarter} {Year}
+Location list the locations of the {Type} sections of {Department} {CourseNum} for {Quarter} quarter {Year}

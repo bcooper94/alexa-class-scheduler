@@ -1,3 +1,9 @@
-CourseTime list the times for {Course}
-CourseTime list the courses available {BeforeAfter} {AMAZON.TIME}
-CourseTime list the courses between {AMAZON.TIME} and {AMAZON.TIME}
+CourseTime list the times for {Department} {CourseNum}
+CourseTime what time is {Department} {CourseNum} offered
+CourseTime when is {Department} {CourseNum} offered
+CourseTime list the sections of {Department} {CourseNum} {BeforeAfter} {SingleTime}
+CourseTime list all sections of {Department} {CourseNum} {BeforeAfter} {SingleTime}
+CourseTime list the sections of {Department} {CourseNum} between {StartTime} and {EndTime}
+CourseTime list all sections of {Department} {CourseNum} between {StartTime} and {EndTime}
+CourseTime list the courses available {BeforeAfter} {SingleTime}
+CourseTime list the courses between {StartTime} and {EndTime}
