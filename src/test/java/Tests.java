@@ -33,12 +33,13 @@ public class Tests {
         courses.add(c);
      } 
      db.create(courses);
-     int[] section = {0};
-     db.read().forEach( (rc) -> {
+     List<Query> queryList = new ArrayList<Query>();
+     queryList.add(new Query("department", "CSC", Query.EQUAL, Query.AND));
+     List<Course> resultList = db.read(queryList);
+     assertEquals(5, resultList.size());
+     db.read(queryList).forEach( (rc) -> {
         assertEquals("CSC", rc.department);
         assertEquals("101", rc.courseNumber);
-        assertEquals(Integer.toString(section[0]), rc.section);
-        section[0]++;
      });
   }
 }
