@@ -1,6 +1,7 @@
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -33,12 +34,18 @@ public class Tests {
         courses.add(c);
      } 
      db.create(courses);
-     int[] section = {0};
-     db.read().forEach( (rc) -> {
+     List<Query> queryList = new ArrayList<Query>();
+     queryList.add(new Query("department", "CSC", Query.EQUAL, null, null));
+     List<Course> resultList = db.read(queryList);
+     assertEquals(5, resultList.size());
+     db.read(queryList).forEach( (rc) -> {
         assertEquals("CSC", rc.department);
         assertEquals("101", rc.courseNumber);
-        assertEquals(Integer.toString(section[0]), rc.section);
-        section[0]++;
      });
+     /*assertEquals(1,db.read(Arrays.asList(
+        new Query("department", "CSC", Query.EQUAL, Query.AND, null),
+        new Query("section", "1", Query.GREATER_THAN, Query.OR, Query.OPEN),
+        new Query("section", "3", Query.LESS_THAN, null, Query.CLOSE)
+     )).size());*/
   }
 }
