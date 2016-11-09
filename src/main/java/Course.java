@@ -4,12 +4,14 @@
 * @author  Joey Wilson
 */
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
 public class Course {
-   
-   public String department;   
+
+   public String department;
    public String courseNumber;
    public String section;
    public String profFirstName;
@@ -27,10 +29,10 @@ public class Course {
 
    }
 
-   public Course(String department, String courseNumber, String section, 
-                 String profFirstName, String profLastName, 
-                 String requirement, String type, String days, 
-                 String start, String end, String quarter, 
+   public Course(String department, String courseNumber, String section,
+                 String profFirstName, String profLastName,
+                 String requirement, String type, String days,
+                 String start, String end, String quarter,
                  String year, String location) {
       this.department = department;
       this.section = section;
@@ -45,6 +47,23 @@ public class Course {
       this.year = year;
       this.location = location;
       this.courseNumber = courseNumber;
+   }
+
+   public List<CourseConflict> getConflicts(List<Course> schedule) {
+      List<CourseConflict> conflicts = new ArrayList<>();
+
+      for (Course course : schedule) {
+         if (isTimeConflict(course)) {
+            conflicts.add(new CourseConflict(this, course));
+         }
+      }
+
+      return conflicts;
+   }
+
+   private boolean isTimeConflict(Course other) {
+       // TODO: Figure out time format for DynamoDB to create and compare times
+       return false;
    }
 
    public boolean equals(Course c) {
