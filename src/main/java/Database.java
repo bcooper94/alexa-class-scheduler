@@ -112,27 +112,24 @@ public class Database {
          for (Query query: queryList) {
             nameMap.put("#"+query.key, query.key);
             valueMap.put(":v_"+query.key, query.value);
-            expression.append(String.format("#%s = :v_%s AND ", query.key, query.key));
-         }
-         
-         // Remove trailing AND or OR
-         String expressionString = expression.toString();
-         int lastAnd = expressionString.lastIndexOf("AND");
-         int lastOr = expressionString.lastIndexOf("OR");
-         if (lastAnd > lastOr) {
-            expressionString = expressionString.substring(0, lastAnd);
-         } else if (lastOr > lastAnd) {
-            expressionString = expressionString.substring(0, lastOr);
+            expression.append(
+               String.format("%s #%s %s :v_%s %s %s ", 
+               query.paren == "(" ? query.paren : "",
+               query.key,
+               query.operation, 
+               query.key,
+               query.paren == ")" ? query.paren : "",
+               query.logic != null ? query.logic : ""));
          }
          
          // Print the query
-         System.out.println(expressionString); 
+         System.out.println(expression.toString()); 
          System.out.println(nameMap); 
          System.out.println(valueMap); 
         
          // Run the query 
          table.scan(
-            expressionString,
+            expression.toString(),
             nameMap,
             valueMap
          )
