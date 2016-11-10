@@ -26,6 +26,14 @@
         {
           "name": "SectionTwo",
           "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "Quarter",
+          "type": "LIST_OF_QUARTERS"
+        },
+        {
+          "name": "Year",
+          "type": "AMAZON.NUMBER"
         }
       ]
     },
@@ -59,6 +67,14 @@
         {
           "name": "Section",
           "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "Quarter",
+          "type": "LIST_OF_QUARTERS"
+        },
+        {
+          "name": "Year",
+          "type": "AMAZON.NUMBER"
         }
       ]
     },
@@ -88,6 +104,14 @@
         {
           "name": "SingleTime",
           "type": "AMAZON.TIME"
+        },
+        {
+          "name": "Quarter",
+          "type": "LIST_OF_QUARTERS"
+        },
+        {
+          "name": "Year",
+          "type": "AMAZON.NUMBER"
         }
       ]
     },
@@ -97,6 +121,14 @@
         {
           "name": "CourseRequirement",
           "type": "LIST_OF_GE_TYPES"
+        },
+        {
+          "name": "Quarter",
+          "type": "LIST_OF_QUARTERS"
+        },
+        {
+          "name": "Year",
+          "type": "AMAZON.NUMBER"
         }
       ]
     },
@@ -118,6 +150,14 @@
         {
           "name": "GEType",
           "type": "LIST_OF_GE_TYPES"
+        },
+        {
+          "name": "Quarter",
+          "type": "LIST_OF_QUARTERS"
+        },
+        {
+          "name": "Year",
+          "type": "AMAZON.NUMBER"
         }
       ]
     },
@@ -160,6 +200,14 @@
         {
           "name": "CourseNum",
           "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "Quarter",
+          "type": "LIST_OF_QUARTERS"
+        },
+        {
+          "name": "Year",
+          "type": "AMAZON.NUMBER"
         }
       ]
     },
@@ -176,6 +224,14 @@
         },
         {
           "name": "CourseNum",
+          "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "Quarter",
+          "type": "LIST_OF_QUARTERS"
+        },
+        {
+          "name": "Year",
           "type": "AMAZON.NUMBER"
         }
       ]
