@@ -3,14 +3,15 @@ import static org.junit.Assert.assertEquals;
 import dal.*;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 
 public class Tests {
   /*@Test
   public void createOneTest() {
-     dal.Database db = new dal.Database();
-     dal.Course c = new dal.Course();
+     Database db = new Database();
+     Course c = new Course();
      c.department = "CSC";
      c.courseNumber = "101";
      c.section = "1";
@@ -43,10 +44,10 @@ public class Tests {
         assertEquals("CSC", rc.department);
         assertEquals("101", rc.courseNumber);
      });
-     /*assertEquals(1,db.read(Arrays.asList(
-        new dal.Query("department", "CSC", dal.Query.EQUAL, dal.Query.AND, null),
-        new dal.Query("section", "1", dal.Query.GREATER_THAN, dal.Query.OR, dal.Query.OPEN),
-        new dal.Query("section", "3", dal.Query.LESS_THAN, null, dal.Query.CLOSE)
-     )).size());*/
+     assertEquals(1,db.read(Arrays.asList(
+        new Query(QueryKey.DEPARTMENT, "CSC", QueryOperation.EQUAL, QueryLogic.AND, null),
+        new Query(QueryKey.SECTION, "1", QueryOperation.GREATER_THAN, QueryLogic.AND, Query.OPEN),
+        new Query(QueryKey.SECTION, "3", QueryOperation.LESS_THAN, null, Query.CLOSE)
+     )).size());
   }
 }
