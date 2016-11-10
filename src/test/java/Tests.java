@@ -1,8 +1,6 @@
 import static org.junit.Assert.assertEquals;
 
-import dal.Course;
-import dal.Database;
-import dal.Query;
+import dal.*;
 import org.junit.Test;
 
 import java.util.List;
@@ -38,7 +36,7 @@ public class Tests {
      } 
      db.create(courses);
      List<Query> queryList = new ArrayList<Query>();
-     queryList.add(new Query("department", "CSC", Query.EQUAL, null, null));
+     queryList.add(new Query(QueryKey.DEPARTMENT, "CSC", QueryOperation.EQUAL, null, null));
      List<Course> resultList = db.read(queryList);
      assertEquals(5, resultList.size());
      db.read(queryList).forEach( (rc) -> {
