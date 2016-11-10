@@ -1,8 +1,8 @@
 /**
-* Database class to provide CRUD functionality to the database
-*
-* @author  Joey Wilson
-*/
+ * Database class to provide CRUD functionality to the database
+ *
+ * @author  Joey Wilson
+ */
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,18 +22,12 @@ import com.amazonaws.services.dynamodbv2.model.ScalarAttributeType;
 import com.amazonaws.services.dynamodbv2.model.ResourceInUseException;
 
 // Insert
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.PrimaryKey;
 import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
 
 // Read
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-import com.amazonaws.services.dynamodbv2.document.DynamoDB;
-import com.amazonaws.services.dynamodbv2.document.Item;
-import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
 import com.amazonaws.services.dynamodbv2.document.ItemCollection;
 import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
@@ -75,6 +69,7 @@ public class Database {
          this.create(c);
       });    
    }
+
    public void create (Course course) {
       Table table = dynamoDB.getTable("CoursesTest");
       Map<String, Object> infoMap = course.toMap(); 
@@ -108,16 +103,26 @@ public class Database {
          Map<String, String> nameMap = new <String, String>HashMap();
          Map<String, Object> valueMap = new <String, Object>HashMap();
          
+         Map<String, Integer> varMap = new <String, Integer>HashMap();
+
          // Build the query
          for (Query query: queryList) {
+            String key = query.key;
+            if (varMap.containsKey(key)) {
+               varMap.put(key, varMap.get(key) + 1);
+               key = key + "_" + String.valueOf(varMap.get(key));
+            } else {
+               varMap.put(key, 0);
+               key = key + "_0";
+            }
             nameMap.put("#"+query.key, query.key);
-            valueMap.put(":v_"+query.key, query.value);
+            valueMap.put(":v_"+key, query.value);
             expression.append(
                String.format("%s #%s %s :v_%s %s %s ", 
                query.paren == "(" ? query.paren : "",
                query.key,
                query.operation, 
-               query.key,
+               key,
                query.paren == ")" ? query.paren : "",
                query.logic != null ? query.logic : ""));
          }
@@ -150,10 +155,23 @@ public class Database {
                (String)item.get("location")
             ));
          });
-     } catch (Exception ex) {
+      } catch (Exception ex) {
          System.err.println("Unable to read item:");
          ex.printStackTrace();
       }
       return courses;
    } 
+
+   public void drop() {
+      Table table = dynamoDB.getTable("CoursesTest");
+      try {
+         System.out.println("Issuing DeleteTable request for " + tableName);
+         table.delete();
+         System.out.println("Waiting for " + tableName + " to be deleted...this may take a while...");
+         table.waitForDelete();
+      } catch (Exception ex) {
+         System.err.println("DeleteTable request failed for " + tableName);
+         ex.printStackTrace();
+      }
+   }
 }
