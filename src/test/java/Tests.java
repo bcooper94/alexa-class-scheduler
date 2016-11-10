@@ -42,10 +42,10 @@ public class Tests {
         assertEquals("CSC", rc.department);
         assertEquals("101", rc.courseNumber);
      });
-     /*assertEquals(1,db.read(Arrays.asList(
+     assertEquals(1,db.read(Arrays.asList(
         new Query("department", "CSC", Query.EQUAL, Query.AND, null),
-        new Query("section", "1", Query.GREATER_THAN, Query.OR, Query.OPEN),
+        new Query("section", "1", Query.GREATER_THAN, Query.AND, Query.OPEN),
         new Query("section", "3", Query.LESS_THAN, null, Query.CLOSE)
-     )).size());*/
+     )).size());
   }
 }

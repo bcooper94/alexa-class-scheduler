@@ -108,16 +108,26 @@ public class Database {
          Map<String, String> nameMap = new <String, String>HashMap();
          Map<String, Object> valueMap = new <String, Object>HashMap();
          
+         Map<String, Integer> varMap = new <String, Integer>HashMap();
+
          // Build the query
          for (Query query: queryList) {
+            String key = query.key;
+            if (varMap.containsKey(key)) {
+               varMap.put(key, varMap.get(key) + 1);
+               key = key + "_" + String.valueOf(varMap.get(key));
+            } else {
+               varMap.put(key, 0);
+               key = key + "_0";
+            }
             nameMap.put("#"+query.key, query.key);
-            valueMap.put(":v_"+query.key, query.value);
+            valueMap.put(":v_"+key, query.value);
             expression.append(
                String.format("%s #%s %s :v_%s %s %s ", 
                query.paren == "(" ? query.paren : "",
                query.key,
                query.operation, 
-               query.key,
+               key,
                query.paren == ")" ? query.paren : "",
                query.logic != null ? query.logic : ""));
          }
