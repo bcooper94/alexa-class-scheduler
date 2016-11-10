@@ -1,8 +1,8 @@
 /**
-* Database class to provide CRUD functionality to the database
-*
-* @author  Joey Wilson
-*/
+ * Database class to provide CRUD functionality to the database
+ *
+ * @author  Joey Wilson
+ */
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,18 +22,12 @@ import com.amazonaws.services.dynamodbv2.model.ScalarAttributeType;
 import com.amazonaws.services.dynamodbv2.model.ResourceInUseException;
 
 // Insert
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.PrimaryKey;
 import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
 
 // Read
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-import com.amazonaws.services.dynamodbv2.document.DynamoDB;
-import com.amazonaws.services.dynamodbv2.document.Item;
-import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
 import com.amazonaws.services.dynamodbv2.document.ItemCollection;
 import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
@@ -75,6 +69,7 @@ public class Database {
          this.create(c);
       });    
    }
+
    public void create (Course course) {
       Table table = dynamoDB.getTable("CoursesTest");
       Map<String, Object> infoMap = course.toMap(); 
@@ -160,10 +155,23 @@ public class Database {
                (String)item.get("location")
             ));
          });
-     } catch (Exception ex) {
+      } catch (Exception ex) {
          System.err.println("Unable to read item:");
          ex.printStackTrace();
       }
       return courses;
    } 
+
+   public void drop() {
+      Table table = dynamoDB.getTable("CoursesTest");
+      try {
+         System.out.println("Issuing DeleteTable request for " + tableName);
+         table.delete();
+         System.out.println("Waiting for " + tableName + " to be deleted...this may take a while...");
+         table.waitForDelete();
+      } catch (Exception ex) {
+         System.err.println("DeleteTable request failed for " + tableName);
+         ex.printStackTrace();
+      }
+   }
 }
