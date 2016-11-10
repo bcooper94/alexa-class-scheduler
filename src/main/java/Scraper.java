@@ -1,3 +1,4 @@
+import dal.Course;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

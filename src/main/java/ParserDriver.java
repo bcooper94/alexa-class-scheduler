@@ -1,3 +1,6 @@
+import dal.Course;
+import dal.Database;
+
 import java.util.ArrayList;
 
 public class ParserDriver {

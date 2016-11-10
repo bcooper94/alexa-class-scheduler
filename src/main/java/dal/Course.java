@@ -1,5 +1,5 @@
-/**
-* Course POJO to hold the database information
+package dal; /**
+* dal.Course POJO to hold the database information
 *
 * @author  Joey Wilson
 */

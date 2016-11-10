@@ -1,5 +1,5 @@
-/**
-* Database class to provide CRUD functionality to the database
+package dal; /**
+* dal.Database class to provide CRUD functionality to the database
 *
 * @author  Joey Wilson
 */
@@ -22,24 +22,11 @@ import com.amazonaws.services.dynamodbv2.model.ScalarAttributeType;
 import com.amazonaws.services.dynamodbv2.model.ResourceInUseException;
 
 // Insert
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
-import com.amazonaws.services.dynamodbv2.document.PrimaryKey;
 import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
-import com.amazonaws.services.dynamodbv2.document.Table;
 
 // Read
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-import com.amazonaws.services.dynamodbv2.document.DynamoDB;
-import com.amazonaws.services.dynamodbv2.document.Item;
-import com.amazonaws.services.dynamodbv2.document.Table;
-import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
-import com.amazonaws.services.dynamodbv2.document.ItemCollection;
-import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
-import com.amazonaws.services.dynamodbv2.document.QueryOutcome;
-import com.amazonaws.services.dynamodbv2.document.spec.ScanSpec;
-import com.amazonaws.services.dynamodbv2.document.ScanOutcome;
+
 
 public class Database {
 
@@ -103,23 +90,23 @@ public class Database {
       try {
          System.out.println("Attempting to read the item...");
          
-         // Query Variables
+         // dal.Query Variables
          StringBuilder expression = new StringBuilder();
          Map<String, String> nameMap = new <String, String>HashMap();
          Map<String, Object> valueMap = new <String, Object>HashMap();
          
          // Build the query
          for (Query query: queryList) {
-            nameMap.put("#"+query.key, query.key);
-            valueMap.put(":v_"+query.key, query.value);
+            nameMap.put("#"+query.key.getKey(), query.key.getKey());
+            valueMap.put(":v_"+query.key.getKey(), query.value);
             expression.append(
                String.format("%s #%s %s :v_%s %s %s ", 
                query.paren == "(" ? query.paren : "",
-               query.key,
-               query.operation, 
-               query.key,
+               query.key.getKey(),
+               query.operation.getComparison(),
+               query.key.getKey(),
                query.paren == ")" ? query.paren : "",
-               query.logic != null ? query.logic : ""));
+               query.logic != null ? query.logic.getLogic() : ""));
          }
          
          // Print the query
