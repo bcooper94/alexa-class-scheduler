@@ -8,8 +8,7 @@ import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.Reprompt;
 import com.amazon.speech.ui.SimpleCard;
 import com.amazon.speech.ui.SsmlOutputSpeech;
-import dal.Course;
-import dal.Database;
+import dal.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,4 +73,21 @@ public abstract class SchedulerIntent {
     public abstract SpeechletResponse createResponse();
 
 //    public abstract void sendQuery();
+
+    //Use this to start a function
+    //@param queryList - the statement to add the quarter and/or year if they aren't null
+    //@return a string to add to start the response alexa will replay with
+    protected String addQuarterYear(List<Query> queryList) {
+        String response = "";
+        if (slots.get("Quarter") != null && slots.get("Year") != null) {
+            queryList.add(new Query(QueryKey.QUARTER, slots.get("Quarter"), QueryOperation.EQUAL, QueryLogic.AND));
+            queryList.add(new Query(QueryKey.YEAR, slots.get("Year"), QueryOperation.EQUAL, QueryLogic.AND));
+            response = "In " + slots.get("Quarter") + " " + slots.get("Year") + " ";
+        }
+        else if (slots.get("Quarter") != null) {
+            queryList.add(new Query(QueryKey.QUARTER, slots.get("Quarter"), QueryOperation.EQUAL, QueryLogic.AND));
+            response = "In " + slots.get("Quarter") + " ";
+        }
+        return response;
+    }
 }

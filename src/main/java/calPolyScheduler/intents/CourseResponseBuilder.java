@@ -101,4 +101,8 @@ public class CourseResponseBuilder {
 
         return builderTheThird.toString();
     }
+
+    public String addSpellOut(String input) {
+        return "<say-as interpret-as=\"spell-out\">" + input + "</say-as>";
+    }
 }
