@@ -74,7 +74,7 @@ public abstract class SchedulerIntent {
 
 //    public abstract void sendQuery();
 
-    //Use this to start a function
+    //Use this at the start of a query
     //@param queryList - the statement to add the quarter and/or year if they aren't null
     //@return a string to add to start the response alexa will replay with
     protected String addQuarterYear(List<Query> queryList) {
