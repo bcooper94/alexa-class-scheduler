@@ -1,0 +1,5 @@
+rm shared-local-instance.db || echo "NO DATABASE" && 
+java -Djava.library.path=./dynamo/DynamoDBLocal_lib -jar ./dynamo/DynamoDBLocal.jar -sharedDb &
+mvn package &&
+killall -9 java &&
+echo "DONE"

@@ -115,14 +115,14 @@ public class Database {
                varMap.put(key, 0);
                key = key + "_0";
             }
-            nameMap.put("#"+query.key, query.key.getKey());
+            nameMap.put("#"+query.key.getKey(), query.key.getKey());
             valueMap.put(":v_"+key, query.value);
             expression.append(
                String.format("%s #%s %s :v_%s %s %s ", 
                query.paren == "(" ? query.paren : "",
                query.key.getKey(),
                query.operation.getComparison(),
-               query.key.getKey(),
+               key,
                query.paren == ")" ? query.paren : "",
                query.logic != null ? query.logic.getLogic() : ""));
          }
