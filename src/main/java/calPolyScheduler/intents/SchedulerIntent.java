@@ -4,10 +4,17 @@ import com.amazon.speech.slu.Intent;
 import com.amazon.speech.slu.Slot;
 import com.amazon.speech.speechlet.Session;
 import com.amazon.speech.speechlet.SpeechletResponse;
+import com.amazon.speech.ui.PlainTextOutputSpeech;
+import com.amazon.speech.ui.Reprompt;
+import com.amazon.speech.ui.SimpleCard;
+import com.amazon.speech.ui.SsmlOutputSpeech;
+import dal.Course;
+import dal.Database;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
@@ -20,6 +27,7 @@ public abstract class SchedulerIntent {
     protected Intent intent;
     protected Session session;
     protected Map<String, String> slots;
+    protected static Database db;
 
     public SchedulerIntent(Intent intent, Session session) {
         this.intent = intent;
@@ -37,6 +45,30 @@ public abstract class SchedulerIntent {
         }
         String slotsLog = slotStr.toString().trim() + "]";
         log.debug("{} slots={}", this.intent.getName(), slotsLog);
+        if (db == null)
+            db = new Database();
+    }
+
+    protected SpeechletResponse setFollowUpQuestion(String voiceOuput, String repromptText) {
+        Reprompt reprompt = new Reprompt();
+        PlainTextOutputSpeech repromptOutput = new PlainTextOutputSpeech();
+        PlainTextOutputSpeech askOutput = new PlainTextOutputSpeech();
+
+        repromptOutput.setText(repromptText);
+        reprompt.setOutputSpeech(repromptOutput);
+        askOutput.setText(voiceOuput);
+
+        return SpeechletResponse.newAskResponse(askOutput, reprompt);
+    }
+
+    protected SpeechletResponse setAnswer(String voiceOuput, String cardTitle, String appOutput) {
+        voiceOuput = "<speak>" + voiceOuput + "</speak>";
+        SimpleCard card = new SimpleCard();
+        card.setTitle(cardTitle);
+        SsmlOutputSpeech outputSpeech = new SsmlOutputSpeech();
+        outputSpeech.setSsml(voiceOuput);
+        card.setContent(appOutput);
+        return SpeechletResponse.newTellResponse(outputSpeech, card);
     }
 
     public abstract SpeechletResponse createResponse();
