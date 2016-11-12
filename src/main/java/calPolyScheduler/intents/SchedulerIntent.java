@@ -118,12 +118,12 @@ public abstract class SchedulerIntent {
         else if (slots.get("Quarter") != null) {
             queryList.add(new Query(QueryKey.QUARTER, slots.get("Quarter"), QueryOperation.EQUAL, QueryLogic.AND));
             queryList.add(new Query(QueryKey.YEAR, getCurrentYear(), QueryOperation.EQUAL, QueryLogic.AND));
-            response = "In " + slots.get("Quarter") + " " + getCurrentQuarter() + " ";
+            response = "In " + slots.get("Quarter") + " " + getCurrentYear() + " ";
         }
         else {
             queryList.add(new Query(QueryKey.QUARTER, getCurrentQuarter(), QueryOperation.EQUAL, QueryLogic.AND));
             queryList.add(new Query(QueryKey.YEAR, getCurrentYear(), QueryOperation.EQUAL, QueryLogic.AND));
-            response = "In " + getCurrentQuarter() + " " + getCurrentQuarter() + " ";
+            response = "In " + getCurrentQuarter() + " " + getCurrentYear() + " ";
         }
         return response;
     }
