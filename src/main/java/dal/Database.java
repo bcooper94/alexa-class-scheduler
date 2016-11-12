@@ -43,7 +43,6 @@ public class Database {
 
    public Database () {
       client = new AmazonDynamoDBClient();
-      client.withEndpoint("http://localhost:8000");
       dynamoDB = new DynamoDB(client);
       try {
          Table table = dynamoDB.createTable("CoursesTest", 
@@ -52,6 +51,29 @@ public class Database {
                new AttributeDefinition("id", ScalarAttributeType.N)
             ),
             new ProvisionedThroughput(1L, 1L)
+         );
+         table.waitForActive();
+         System.out.println("Success. Table status: " + table.getDescription().getTableStatus());
+      } catch (ResourceInUseException ex) {
+         System.out.println("Table already exists, proceeding ...");
+      } catch (Exception ex) {
+         System.err.println("Unable to create table: ");
+         ex.printStackTrace();
+      }
+      id = 0;
+   }
+
+   public Database(String endpoint) {
+      client = new AmazonDynamoDBClient();
+      client.withEndpoint(endpoint);
+      dynamoDB = new DynamoDB(client);
+      try {
+         Table table = dynamoDB.createTable("CoursesTest",
+                 Arrays.asList(new KeySchemaElement("id", KeyType.HASH)),
+                 Arrays.asList(
+                         new AttributeDefinition("id", ScalarAttributeType.N)
+                 ),
+                 new ProvisionedThroughput(1L, 1L)
          );
          table.waitForActive();
          System.out.println("Success. Table status: " + table.getDescription().getTableStatus());
@@ -124,17 +146,27 @@ public class Database {
                query.operation.getComparison(),
                key,
                query.paren == ")" ? query.paren : "",
-               query.logic != null ? query.logic.getLogic() : ""));
+               query.logic.getLogic()));
          }
-         
+
+         String expStr = expression.toString();
+         int lastAnd = expStr.lastIndexOf("AND");
+         int lastOr = expStr.lastIndexOf("OR");
+
+         if (lastAnd > lastOr) {
+            expStr = expStr.substring(0, lastAnd);
+         } else if (lastOr > lastAnd) {
+            expStr = expStr.substring(0, lastOr);
+         }
+
          // Print the query
-         System.out.println(expression.toString()); 
+         System.out.println(expStr);
          System.out.println(nameMap); 
          System.out.println(valueMap); 
         
          // Run the query 
          table.scan(
-            expression.toString(),
+            expStr,
             nameMap,
             valueMap
          )

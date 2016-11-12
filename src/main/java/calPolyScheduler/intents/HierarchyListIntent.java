@@ -5,17 +5,17 @@ import com.amazon.speech.speechlet.Session;
 import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.Reprompt;
-import com.amazon.speech.ui.SimpleCard;
-import com.amazon.speech.ui.SsmlOutputSpeech;
+import dal.Course;
 import dal.Query;
 import dal.QueryKey;
 import dal.QueryOperation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by brandon on 11/5/16.
+ * @author Brandon Cooper
  */
 public class HierarchyListIntent extends SchedulerIntent {
     public HierarchyListIntent(Intent intent, Session session) {
@@ -28,64 +28,74 @@ public class HierarchyListIntent extends SchedulerIntent {
         String college = slots.get("College"),
                 department = slots.get("Department"),
                 courseNum = slots.get("CourseNum"),
-                geType = slots.get("GEType");
-        SimpleCard card = new SimpleCard();
-        card.setTitle("Section Timings");
+                geType = slots.get("GEType"),
+                quarter = slots.get("Quarter"),
+                year = slots.get("Year");
         List<Query> constraints = new ArrayList<>();
+
+        if (quarter == null) {
+            quarter = getCurrentQuarter();
+        }
+        if (year == null) {
+            year = getCurrentYear();
+        }
+
+        constraints.add(new Query(QueryKey.QUARTER, quarter, QueryOperation.EQUAL));
+        constraints.add(new Query(QueryKey.YEAR, year, QueryOperation.EQUAL));
 
         // Listing all sections of a course
         if (department != null && courseNum != null) {
             constraints.add(new Query(QueryKey.DEPARTMENT, department, QueryOperation.EQUAL));
             constraints.add(new Query(QueryKey.COURSE_NUM, courseNum, QueryOperation.EQUAL));
-            // TODO: Use constraints to query DB
-            SsmlOutputSpeech outputSpeech = new SsmlOutputSpeech();
-            String ssmlOutput = "<speak>You asked for the sections of <say-as interpret-as=\"spell-out\">%s</say-as>" +
-                    " <say-as interpret-as=\"spell-out\">%s</say-as></speak>";
-            ssmlOutput = String.format(ssmlOutput, department, courseNum);
-            String output = String.format("Listing the sections of %s %s.", department, courseNum);
-            outputSpeech.setSsml(ssmlOutput);
-            card.setContent(output);
-            response = SpeechletResponse.newTellResponse(outputSpeech, card);
+            response = courseListResponse(constraints, Arrays.asList(QueryKey.DAYS, QueryKey.TIME_RANGE),
+                    quarter, year);
         }
         // Listing all courses within a department
         else if (department != null) {
             constraints.add(new Query(QueryKey.DEPARTMENT, department, QueryOperation.EQUAL));
-            // TODO: Use constraints to query DB
-            SsmlOutputSpeech outputSpeech = new SsmlOutputSpeech();
-            String ssmlOutput = "<speak>You asked for the courses within the <say-as interpret-as=\"spell-out\">%s</say-as>" +
-                    " department</speak>";
-            ssmlOutput = String.format(ssmlOutput, department);
-            String output = String.format("Listing the courses within the %s department.", department);
-            outputSpeech.setSsml(ssmlOutput);
-            card.setContent(output);
-            response = SpeechletResponse.newTellResponse(outputSpeech, card);
-        }
-        else if (college != null) {
+            response = courseListResponse(constraints, Arrays.asList(QueryKey.DEPARTMENT, QueryKey.COURSE_NUM),
+                    quarter, year);
+        } else if (college != null) {
             constraints.add(new Query(QueryKey.COLLEGE, college, QueryOperation.EQUAL));
-            // TODO: Use constraints to query DB
-            PlainTextOutputSpeech outputSpeech = new PlainTextOutputSpeech();
-            String outputText = String.format("You asked for the courses within the %s", college);
-            String output = String.format("Listing the courses within the %s.", college);
-            outputSpeech.setText(outputText);
-            card.setContent(output);
-            response = SpeechletResponse.newTellResponse(outputSpeech, card);
-        }
-        else if (geType != null) {
+            response = courseListResponse(constraints, Arrays.asList(QueryKey.DEPARTMENT, QueryKey.COURSE_NUM),
+                    quarter, year);
+        } else if (geType != null) {
             constraints.add(new Query(QueryKey.TYPE, geType, QueryOperation.EQUAL));
-            // TODO: Use constraints to query DB
-            SsmlOutputSpeech outputSpeech = new SsmlOutputSpeech();
-            String ssmlOutput = "<speak>You asked for the courses that fulfill the <say-as interpret-as=\"spell-out\">%s</say-as> requirement</speak>";
-            ssmlOutput = String.format(ssmlOutput, geType);
-            outputSpeech.setSsml(ssmlOutput);
-            card.setContent(String.format("Listing the courses that fulfill the %s requirement.", geType));
-            response = SpeechletResponse.newTellResponse(outputSpeech, card);
+            response = courseListResponse(constraints, Arrays.asList(QueryKey.DEPARTMENT, QueryKey.COURSE_NUM),
+                    quarter, year);
+        } else {
+            String collegeResponse = "The colleges are: the College of Agriculture Food" +
+                    " and Environmental Science, the College of Architecture and Environmental" +
+                    " Design, Orfalea College of Business, the College of Liberal Arts," +
+                    "the College of Engineering, and the College of Science and Math.",
+                    cardContent = "College of Agriculture, Food, and Environmental Science" +
+                            "\nCollege of Architecture and Environmental Design\n" +
+                            "Orfalea College of Business\nCollege of Liberal Arts\n" +
+                            "College of Engineering\nCollege of Science and Math";
+            response = setAnswer(collegeResponse, "Cal Poly Colleges", cardContent);
         }
-        else {
-            // TODO: Query DB for all colleges
-            PlainTextOutputSpeech outputSpeech = new PlainTextOutputSpeech();
-            outputSpeech.setText("Listing all of the colleges.");
-            card.setContent("Listing all of the colleges.");
-            response = SpeechletResponse.newTellResponse(outputSpeech, card);
+
+        return response;
+    }
+
+    private SpeechletResponse courseListResponse(List<Query> queries, List<QueryKey> responseKeys,
+                                                 String quarter, String year) {
+        SpeechletResponse response;
+        CourseResponseBuilder responseBuilder = new CourseResponseBuilder();
+        List<Course> courses = db.read(queries);
+        String cardTitle = "Section Timings",
+                defaultSpeech = String.format("Sorry, I wasn't able to find any courses for %s %s",
+                        quarter, year),
+                defaultCardContent = String.format("No matching courses were found for %s %s.",
+                        quarter, year);
+
+        if (courses.size() > 0) {
+            String courseOutput = String.format("I found the following courses for %s %s. ",
+                    quarter, year) + responseBuilder.convertCourse(courses, responseKeys);
+            log.info("HierarchyList response text: {}", courseOutput);
+            response = setAnswer(courseOutput, cardTitle, courseOutput);
+        } else {
+            response = setAnswer(defaultSpeech, cardTitle, defaultCardContent);
         }
 
         return response;

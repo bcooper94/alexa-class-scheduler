@@ -26,7 +26,7 @@ public class Tests {
 
   @Test
   public void createManyTest() {
-     Database db = new Database();
+     Database db = new Database("http://localhost:8000");
      List<Course> courses = new ArrayList<Course>();
      for (int i = 0; i < 5; i++) {
         Course c = new Course();
@@ -37,7 +37,7 @@ public class Tests {
      } 
      db.create(courses);
      List<Query> queryList = new ArrayList<Query>();
-     queryList.add(new Query(QueryKey.DEPARTMENT, "CSC", QueryOperation.EQUAL, null, null));
+     queryList.add(new Query(QueryKey.DEPARTMENT, "CSC", QueryOperation.EQUAL));
      List<Course> resultList = db.read(queryList);
      assertEquals(5, resultList.size());
      db.read(queryList).forEach( (rc) -> {
@@ -45,9 +45,9 @@ public class Tests {
         assertEquals("101", rc.courseNumber);
      });
      assertEquals(1,db.read(Arrays.asList(
-        new Query(QueryKey.DEPARTMENT, "CSC", QueryOperation.EQUAL, QueryLogic.AND, null),
+        new Query(QueryKey.DEPARTMENT, "CSC", QueryOperation.EQUAL, QueryLogic.AND),
         new Query(QueryKey.SECTION, "1", QueryOperation.GREATER_THAN, QueryLogic.AND, Query.OPEN),
-        new Query(QueryKey.SECTION, "3", QueryOperation.LESS_THAN, null, Query.CLOSE)
+        new Query(QueryKey.SECTION, "3", QueryOperation.LESS_THAN, QueryLogic.AND, Query.CLOSE)
      )).size());
   }
 }

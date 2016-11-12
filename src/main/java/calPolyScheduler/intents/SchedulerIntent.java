@@ -45,12 +45,12 @@ public abstract class SchedulerIntent {
         for (String key : slots.keySet()) {
             curSlot = slots.get(key);
             if (curSlot.getValue() != null) {
-                this.slots.put(key, curSlot.getValue());
-                slotStr.append(String.format("%s: %s ", key, curSlot.getValue()));
+                this.slots.put(key, curSlot.getValue().toUpperCase());
+                slotStr.append(String.format("%s: %s ", key, curSlot.getValue().toUpperCase()));
             }
         }
         String slotsLog = slotStr.toString().trim() + "]";
-        log.debug("{} slots={}", this.intent.getName(), slotsLog);
+        log.info("{} slots={}", this.intent.getName(), slotsLog);
         if (db == null)
             db = new Database();
     }
@@ -84,16 +84,16 @@ public abstract class SchedulerIntent {
         int monthCode = Calendar.getInstance().get(Calendar.MONTH);
 
         if (monthCode >= SEPTEMBER && monthCode <= DECEMBER) {
-            month = "Fall";
+            month = "FALL";
         }
         else if (monthCode >= JANUARY && monthCode <= MARCH) {
-            month = "Winter";
+            month = "WINTER";
         }
         else if (monthCode > MARCH && monthCode <= JUNE) {
-            month = "Spring";
+            month = "SPRING";
         }
         else {
-            month = "Summer";
+            month = "SUMMER";
         }
 
         return month;

@@ -1,6 +1,12 @@
 HierarchyList list all of the colleges
 HierarchyList list all of the departments within {College}
 HierarchyList list the courses within {Department}
+HierarchyList list the courses within {Department} for {Quarter}
+HierarchyList list the courses within {Department} for {Quarter} {Year}
 HierarchyList list the sections of {Department} {CourseNum}
+HierarchyList list the sections of {Department} {CourseNum} for {Quarter}
+HierarchyList list the sections of {Department} {CourseNum} for {Quarter} {Year}
 HierarchyList list the {GEType} courses
+HierarchyList list the {GEType} courses for {Quarter}
+HierarchyList list the {GEType} courses for {Quarter} {Year}
 HierarchyList list the courses that fulfill the {GEType} requirement

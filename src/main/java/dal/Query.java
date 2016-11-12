@@ -23,6 +23,7 @@ public class Query {
       this.key = key;
       this.value = value;
       this.operation = operation;
+      this.logic = QueryLogic.AND;
    }
 
    public Query(QueryKey key, Object value, QueryOperation operation, QueryLogic logic) {

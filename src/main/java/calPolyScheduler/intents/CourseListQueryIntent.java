@@ -35,7 +35,7 @@ public class CourseListQueryIntent extends SchedulerIntent {
             }
         }
         slotStr.append("]");
-        log.debug("{} slots={}", intent.getName(), slotStr);
+        log.info("{} slots={}", intent.getName(), slotStr);
     }
 
     @Override

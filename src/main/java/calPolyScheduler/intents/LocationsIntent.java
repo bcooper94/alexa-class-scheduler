@@ -7,9 +7,17 @@ import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.Reprompt;
 import com.amazon.speech.ui.SimpleCard;
 import com.amazon.speech.ui.SsmlOutputSpeech;
+import dal.Course;
+import dal.Query;
+import dal.QueryKey;
+import dal.QueryOperation;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
- * Created by brandon on 11/5/16.
+ * @author Brandon Cooper
  */
 public class LocationsIntent extends SchedulerIntent {
     public LocationsIntent(Intent intent, Session session) {
@@ -18,84 +26,67 @@ public class LocationsIntent extends SchedulerIntent {
 
     @Override
     public SpeechletResponse createResponse() {
-        SpeechletResponse response;
-        SimpleCard card = new SimpleCard();
-        card.setTitle("Section Timings");
         String department = slots.get("Department"),
                 courseNum = slots.get("CourseNum"),
                 quarter = slots.get("Quarter"),
                 year = slots.get("Year"),
                 courseType = slots.get("Type");
+        List<Query> constraints = new ArrayList<>();
 
         if (department == null || courseNum == null) {
             return askForClarification();
         }
+        if (quarter == null) {
+            quarter = getCurrentQuarter();
+        }
+        if (year == null) {
+            year = getCurrentYear();
+        }
 
-        if (courseType != null && quarter != null && year != null) {
-            SsmlOutputSpeech outputSpeech = new SsmlOutputSpeech();
-            String ssmlOutput = "<speak>You asked for the locations of the %s sections of <say-as interpret-as=\"spell-out\">%s</say-as>" +
-                    " <say-as interpret-as=\"spell-out\">%s</say-as> for %s quarter in <say-as interpret-as=\"date\">%s</say-as></speak>";
-            ssmlOutput = String.format(ssmlOutput, courseType, department, courseNum, quarter, year);
-            String output = String.format("Listing the locations of the %s sections of %s %s for %s quarter in %s.",
-                    courseType, department, courseNum, quarter, year);
-            outputSpeech.setSsml(ssmlOutput);
-            card.setContent(output);
-            response = SpeechletResponse.newTellResponse(outputSpeech, card);
+        constraints.add(new Query(QueryKey.DEPARTMENT, department, QueryOperation.EQUAL));
+        constraints.add(new Query(QueryKey.COURSE_NUM, courseNum, QueryOperation.EQUAL));
+        constraints.add(new Query(QueryKey.QUARTER, quarter, QueryOperation.EQUAL));
+        constraints.add(new Query(QueryKey.YEAR, year, QueryOperation.EQUAL));
+
+//        if (courseType != null && quarter != null && year != null) {
+//            constraints.add(new Query(QueryKey.TYPE, courseType, QueryOperation.EQUAL));
+//            constraints.add(new Query(QueryKey.QUARTER, quarter, QueryOperation.EQUAL));
+//            constraints.add(new Query(QueryKey.YEAR, year, QueryOperation.EQUAL));
+//        } else if (courseType != null && quarter != null) {
+//            constraints.add(new Query(QueryKey.TYPE, courseType, QueryOperation.EQUAL));
+//            constraints.add(new Query(QueryKey.QUARTER, quarter, QueryOperation.EQUAL));
+//        }
+        if (courseType != null) {
+            constraints.add(new Query(QueryKey.TYPE, courseType, QueryOperation.EQUAL));
         }
-        else if (courseType != null && quarter != null) {
-            SsmlOutputSpeech outputSpeech = new SsmlOutputSpeech();
-            String ssmlOutput = "<speak>You asked for the locations of the %s sections of <say-as interpret-as=\"spell-out\">%s</say-as>" +
-                    " <say-as interpret-as=\"spell-out\">%s</say-as> for %s quarter</speak>";
-            ssmlOutput = String.format(ssmlOutput, courseType, department, courseNum, quarter);
-            String output = String.format("Listing the locations of the %s sections of %s %s for %s quarter.",
-                    courseType, department, courseNum, quarter);
-            outputSpeech.setSsml(ssmlOutput);
-            card.setContent(output);
-            response = SpeechletResponse.newTellResponse(outputSpeech, card);
-        }
-        else if (courseType != null) {
-            SsmlOutputSpeech outputSpeech = new SsmlOutputSpeech();
-            String ssmlOutput = "<speak>You asked for the locations of the %s sections of <say-as interpret-as=\"spell-out\">%s</say-as>" +
-                    " <say-as interpret-as=\"spell-out\">%s</say-as></speak>";
-            ssmlOutput = String.format(ssmlOutput, courseType, department, courseNum);
-            String output = String.format("Listing the locations of the %s sections of %s %s.",
-                    courseType, department, courseNum);
-            outputSpeech.setSsml(ssmlOutput);
-            card.setContent(output);
-            response = SpeechletResponse.newTellResponse(outputSpeech, card);
-        }
-        else if (quarter != null && year != null) {
-            SsmlOutputSpeech outputSpeech = new SsmlOutputSpeech();
-            String ssmlOutput = "<speak>You asked for the locations of <say-as interpret-as=\"spell-out\">%s</say-as>" +
-                    " <say-as interpret-as=\"spell-out\">%s</say-as> for %s quarter in <say-as interpret-as=\"date\">%s</say-as></speak>";
-            ssmlOutput = String.format(ssmlOutput, department, courseNum, quarter, year);
-            String output = String.format("Listing the locations of %s %s for %s quarter in %s.",
-                    department, courseNum, quarter, year);
-            outputSpeech.setSsml(ssmlOutput);
-            card.setContent(output);
-            response = SpeechletResponse.newTellResponse(outputSpeech, card);
-        }
-        else if (quarter != null) {
-            SsmlOutputSpeech outputSpeech = new SsmlOutputSpeech();
-            String ssmlOutput = "<speak>You asked for the locations of <say-as interpret-as=\"spell-out\">%s</say-as>" +
-                    " <say-as interpret-as=\"spell-out\">%s</say-as> for %s quarter</speak>";
-            ssmlOutput = String.format(ssmlOutput, department, courseNum, quarter);
-            String output = String.format("Listing the locations of %s %s for %s quarter.",
-                    department, courseNum, quarter);
-            outputSpeech.setSsml(ssmlOutput);
-            card.setContent(output);
-            response = SpeechletResponse.newTellResponse(outputSpeech, card);
-        }
-        else {
-            SsmlOutputSpeech outputSpeech = new SsmlOutputSpeech();
-            String ssmlOutput = "<speak>You asked for the locations of <say-as interpret-as=\"spell-out\">%s</say-as>" +
-                    " <say-as interpret-as=\"spell-out\">%s</say-as></speak>";
-            ssmlOutput = String.format(ssmlOutput, department, courseNum);
-            String output = String.format("Listing the locations of %s %s.",
-                    department, courseNum);
-            outputSpeech.setSsml(ssmlOutput);
-            card.setContent(output);
-            response = SpeechletResponse.newTellResponse(outputSpeech, card);
+//        else if (quarter != null && year != null) {
+//            constraints.add(new Query(QueryKey.QUARTER, quarter, QueryOperation.EQUAL));
+//            constraints.add(new Query(QueryKey.YEAR, year, QueryOperation.EQUAL));
+//        } else if (quarter != null) {
+//            constraints.add(new Query(QueryKey.QUARTER, quarter, QueryOperation.EQUAL));
+//        }
+
+        return courseLocationsResponse(constraints, quarter, year);
+    }
+
+    private SpeechletResponse courseLocationsResponse(List<Query> constraints,
+                                                      String quarter, String year) {
+        SpeechletResponse response;
+        CourseResponseBuilder responseBuilder = new CourseResponseBuilder();
+        List<Course> courses = db.read(constraints);
+        String cardTitle = "Course Locations",
+                defaultSpeech = String.format("Sorry, I wasn't able to find any courses for %s %s",
+                        quarter, year),
+                defaultCardContent = String.format("No matching courses were found for %s %s.", quarter, year);
+
+        if (courses.size() > 0) {
+            String courseOutput = String.format("I found the following course locations for %s %s.",
+                    quarter, year) +
+                    responseBuilder.convertCourse(courses, Arrays.asList(
+                            QueryKey.DEPARTMENT, QueryKey.COURSE_NUM, QueryKey.LOCATION));
+            response = setAnswer(courseOutput, cardTitle, courseOutput);
+        } else {
+            response = setAnswer(defaultSpeech, cardTitle, defaultCardContent);
         }
 
         return response;

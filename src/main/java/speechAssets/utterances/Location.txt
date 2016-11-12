@@ -1,3 +1,28 @@
+Location where {Department} {CourseNum} is
+Location where {Department} {CourseNum} is for {Quarter}
+Location where {Department} {CourseNum} is for {Quarter} quarter
+Location where {Department} {CourseNum} is for {Quarter} {Year}
+Location where {Department} {CourseNum} is for {Quarter} quarter {Year}
+Location where {Department} {CourseNum} is taught
+Location where {Department} {CourseNum} is taught for {Quarter}
+Location where {Department} {CourseNum} is taught for {Quarter} quarter
+Location where {Department} {CourseNum} is taught for {Quarter} {Year}
+Location where {Department} {CourseNum} is taught for {Quarter} quarter {Year}
+Location where {Department} {CourseNum} is offered
+Location where {Department} {CourseNum} is offered for {Quarter}
+Location where {Department} {CourseNum} is offered for {Quarter} quarter
+Location where {Department} {CourseNum} is offered for {Quarter} {Year}
+Location where {Department} {CourseNum} is offered for {Quarter} quarter {Year}
+Location where is {Department} {CourseNum}
+Location where is {Department} {CourseNum} for {Quarter}
+Location where is {Department} {CourseNum} for {Quarter} quarter
+Location where is {Department} {CourseNum} for {Quarter} {Year}
+Location where is {Department} {CourseNum} for {Quarter} quarter {Year}
+Location where is {Department} {CourseNum} taught
+Location where is {Department} {CourseNum} taught for {Quarter}
+Location where is {Department} {CourseNum} taught for {Quarter} quarter
+Location where is {Department} {CourseNum} taught for {Quarter} {Year}
+Location where is {Department} {CourseNum} taught for {Quarter} quarter {Year}
 Location list the locations for {Department} {CourseNum}
 Location list the locations for {Department} {CourseNum} for {Quarter}
 Location list the locations for {Department} {CourseNum} for {Quarter} quarter

@@ -18,7 +18,8 @@ public enum QueryKey {
     QUARTER("quarter"),
     YEAR("year"),
     LOCATION("location"),
-    COLLEGE("college");
+    COLLEGE("college"),
+    TIME_RANGE("timeRange");
 
     private String key;
 

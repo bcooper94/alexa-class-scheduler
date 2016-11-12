@@ -47,6 +47,9 @@ public class CourseResponseBuilder {
                 return courseType;
             case DAYS:
                 return convertDays(c.days);
+            case TIME_RANGE:
+                return "from <say-as interpret-as=\"time\">" + c.start + "</say-as> to " +
+                        "<say-as interpret-as=\"time\">" + c.end + "</say-as>";
             case START:
                 return "<say-as interpret-as=\"time\">" + c.start + "</say-as>";
             case END:

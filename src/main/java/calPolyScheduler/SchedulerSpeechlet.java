@@ -158,4 +158,12 @@ public class SchedulerSpeechlet implements Speechlet {
 
         return SpeechletResponse.newAskResponse(speech, reprompt, card);
     }
+
+    private SpeechletResponse getNoMatchingIntentResponse() {
+        String speechText = "Sorry, you done fucked up your intent";
+        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+        speech.setText(speechText);
+
+        return SpeechletResponse.newTellResponse(speech);
+    }
 }
