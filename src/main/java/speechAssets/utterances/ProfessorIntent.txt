@@ -1,2 +1,6 @@
-ProfessorIntent list the courses taught by {Professor}
+ProfessorIntent list the courses taught by {ProfessorLastName}
+ProfessorIntent list the courses taught by {ProfessorLastName} in {Quarter}
+ProfessorIntent list the courses taught by {ProfessorLastName} in {Quarter} {Year}
 ProfessorIntent list the professors who teach {Department} {CourseNum}
+ProfessorIntent list the professors who teach {Department} {CourseNum} in {Quarter}
+ProfessorIntent list the professors who teach {Department} {CourseNum} in {Quarter} {Year}

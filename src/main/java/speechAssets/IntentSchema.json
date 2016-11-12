@@ -190,7 +190,7 @@
       "intent": "ProfessorIntent",
       "slots": [
         {
-          "name": "Professor",
+          "name": "ProfessorLastName",
           "type": "LIST_OF_PROFESSORS"
         },
         {
