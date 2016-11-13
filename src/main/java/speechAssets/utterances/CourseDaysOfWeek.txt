@@ -1,6 +1,18 @@
 CourseDaysOfWeek list the courses on {DayOne} in {Department}
+CourseDaysOfWeek list the courses on {DayOne} in {Department} in {Quarter}
+CourseDaysOfWeek list the courses on {DayOne} in {Department} in {Quarter} {Year}
 CourseDaysOfWeek list the courses on {DayOne} {DayTwo} in {Department}
+CourseDaysOfWeek list the courses on {DayOne} {DayTwo} in {Department} in {Quarter}
+CourseDaysOfWeek list the courses on {DayOne} {DayTwo} in {Department} in {Quarter} {Year}
 CourseDaysOfWeek list the courses on {DayOne} {DayTwo} {DayThree} in {Department}
+CourseDaysOfWeek list the courses on {DayOne} {DayTwo} {DayThree} in {Department} in {Quarter}
+CourseDaysOfWeek list the courses on {DayOne} {DayTwo} {DayThree} in {Department} in {Quarter} {Year}
 CourseDaysOfWeek list the courses on {DayOne} {DayTwo} {DayThree} {DayFour} in {Department}
+CourseDaysOfWeek list the courses on {DayOne} {DayTwo} {DayThree} {DayFour} in {Department} in {Quarter}
+CourseDaysOfWeek list the courses on {DayOne} {DayTwo} {DayThree} {DayFour} in {Department} in {Quarter} {Year}
 CourseDaysOfWeek list the days of the week that {Department} {CourseNum} is offered
+CourseDaysOfWeek list the days of the week that {Department} {CourseNum} is offered in {Quarter}
+CourseDaysOfWeek list the days of the week that {Department} {CourseNum} is offered in {Quarter} {Year}
 CourseDaysOfWeek list the days of the week that {Department} {CourseNum} section {Section}
+CourseDaysOfWeek list the days of the week that {Department} {CourseNum} section {Section} in {Quarter}
+CourseDaysOfWeek list the days of the week that {Department} {CourseNum} section {Section} in {Quarter} {Year}

@@ -35,13 +35,13 @@ public class CourseResponseBuilder {
                 return "<say-as interpret-as=\"spell-out\">" + c.requirement + "</say-as>";
             case TYPE:
                 String courseType = "lecture";
-                if (c.type.equals("Act")) {
+                if (c.type.equals("ACT")) {
                     courseType = "activity";
                 }
-                else if (c.type.equals("Ind")) {
+                else if (c.type.equals("IND")) {
                     courseType = "independent study";
                 }
-                else if (c.type.equals("Lab")){
+                else if (c.type.equals("LAB")){
                     courseType = "lab";
                 }
                 return courseType;

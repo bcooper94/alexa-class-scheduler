@@ -160,19 +160,19 @@ public class Scraper {
                 String[] courseName = data.get(0).get(iter).split(" ");
                 String[] profName = data.get(2).get(iter).split(" ");
                 Course c = new Course();
-                c.department = courseName[0];
-                c.courseNumber = courseName[1];
-                c.section = data.get(1).get(iter);
-                c.profFirstName = profName[1];
-                c.profLastName = profName[0].replace(",", "");
-                c.requirement = data.get(3).get(iter);
-                c.type = data.get(4).get(iter);
-                c.days = data.get(5).get(iter);
-                c.start = data.get(6).get(iter);
-                c.end = data.get(7).get(iter);
-                c.quarter = date[0];
+                c.department = courseName[0].toUpperCase();
+                c.courseNumber = courseName[1].toUpperCase();
+                c.section = String.valueOf(Integer.parseInt(data.get(1).get(iter)));
+                c.profFirstName = profName[1].toUpperCase();
+                c.profLastName = profName[0].replace(",", "").toUpperCase();
+                c.requirement = data.get(3).get(iter).toUpperCase();
+                c.type = data.get(4).get(iter).toUpperCase();
+                c.days = data.get(5).get(iter).toUpperCase();
+                c.start = data.get(6).get(iter).toUpperCase();
+                c.end = data.get(7).get(iter).toUpperCase();
+                c.quarter = date[0].toUpperCase();
                 c.year = date[1];
-                c.location = data.get(8).get(iter);
+                c.location = data.get(8).get(iter).toUpperCase();
                 courses.add(c);
             }
         }

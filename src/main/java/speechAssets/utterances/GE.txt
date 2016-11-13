@@ -1,1 +1,3 @@
 GE list the GEs for {CourseRequirement}
+GE list the GEs for {CourseRequirement} in {Quarter}
+GE list the GEs for {CourseRequirement} in {Quarter} {Year}
