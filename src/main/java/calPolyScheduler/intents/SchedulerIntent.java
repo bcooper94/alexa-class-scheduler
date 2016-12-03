@@ -29,6 +29,7 @@ public abstract class SchedulerIntent {
     protected Session session;
     protected Map<String, String> slots;
     protected static Database db;
+    protected boolean isDone;
 
     private static final int JANUARY = 1;
     private static final int MARCH = 3;
@@ -59,7 +60,17 @@ public abstract class SchedulerIntent {
         if (isDone == null) {
             log.info("Setting session isDone attribute to false");
             session.setAttribute("isDone", false);
+            this.isDone = false;
         }
+        else {
+            this.isDone = isDone;
+            log.info("Session isDone={}", this.isDone);
+        }
+    }
+
+    protected void setIsDone(boolean value) {
+        this.isDone = value;
+        session.setAttribute("isDone", value);
     }
 
     protected SpeechletResponse setFollowUpQuestion(String voiceOuput, String repromptText) {
@@ -81,8 +92,7 @@ public abstract class SchedulerIntent {
         SsmlOutputSpeech outputSpeech = new SsmlOutputSpeech();
         card.setContent(appOutput);
 
-        Boolean isDone = (Boolean) session.getAttribute("isDone");
-        if (isDone) {
+        if (this.isDone) {
             voiceOuput = "<speak>" + voiceOuput + "</speak>";
             outputSpeech.setSsml(voiceOuput);
             response = SpeechletResponse.newTellResponse(outputSpeech, card);
