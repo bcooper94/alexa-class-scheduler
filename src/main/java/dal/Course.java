@@ -34,16 +34,16 @@ public class Course {
                  String requirement, String type, String days,
                  String start, String end, String quarter,
                  String year, String location) {
-      this.department = department;
-      this.section = section;
-      this.profFirstName = profFirstName;
-      this.profLastName = profLastName;
-      this.requirement = requirement;
-      this.type = type;
-      this.days = days;
+      this.department = department.toUpperCase();
+      this.section = section.toUpperCase();
+      this.profFirstName = profFirstName.toUpperCase();
+      this.profLastName = profLastName.toUpperCase();
+      this.requirement = requirement.toUpperCase();
+      this.type = type.toUpperCase();
+      this.days = days.toUpperCase();
       this.start = start;
       this.end = end;
-      this.quarter = quarter;
+      this.quarter = quarter.toUpperCase();
       this.year = year;
       this.location = location;
       this.courseNumber = courseNumber;

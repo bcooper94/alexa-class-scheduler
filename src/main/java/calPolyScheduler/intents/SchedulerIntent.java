@@ -8,6 +8,7 @@ import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.Reprompt;
 import com.amazon.speech.ui.SimpleCard;
 import com.amazon.speech.ui.SsmlOutputSpeech;
+import com.amazonaws.auth.AnonymousAWSCredentials;
 import dal.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,6 +54,12 @@ public abstract class SchedulerIntent {
         log.info("{} slots={}", this.intent.getName(), slotsLog);
         if (db == null)
             db = new Database();
+
+        Boolean isDone = (Boolean) session.getAttribute("isDone");
+        if (isDone == null) {
+            log.info("Setting session isDone attribute to false");
+            session.setAttribute("isDone", false);
+        }
     }
 
     protected SpeechletResponse setFollowUpQuestion(String voiceOuput, String repromptText) {
@@ -68,13 +75,31 @@ public abstract class SchedulerIntent {
     }
 
     protected SpeechletResponse setAnswer(String voiceOuput, String cardTitle, String appOutput) {
-        voiceOuput = "<speak>" + voiceOuput + "</speak>";
+        SpeechletResponse response;
         SimpleCard card = new SimpleCard();
         card.setTitle(cardTitle);
         SsmlOutputSpeech outputSpeech = new SsmlOutputSpeech();
-        outputSpeech.setSsml(voiceOuput);
         card.setContent(appOutput);
-        return SpeechletResponse.newTellResponse(outputSpeech, card);
+
+        Boolean isDone = (Boolean) session.getAttribute("isDone");
+        if (isDone) {
+            voiceOuput = "<speak>" + voiceOuput + "</speak>";
+            outputSpeech.setSsml(voiceOuput);
+            response = SpeechletResponse.newTellResponse(outputSpeech, card);
+        }
+        else {
+            Reprompt reprompt = new Reprompt();
+            PlainTextOutputSpeech repromptText = new PlainTextOutputSpeech();
+
+            voiceOuput = "<speak>" + voiceOuput + "<break time=\"2s\"/> Would you like to ask about more courses?</speak>";
+            outputSpeech.setSsml(voiceOuput);
+            repromptText.setText("Can you repeat that?");
+            reprompt.setOutputSpeech(repromptText);
+
+            response = SpeechletResponse.newAskResponse(outputSpeech, reprompt, card);
+        }
+
+        return response;
     }
 
     public abstract SpeechletResponse createResponse();
