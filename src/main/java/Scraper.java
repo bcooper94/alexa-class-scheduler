@@ -162,7 +162,7 @@ public class Scraper {
                 Course c = new Course();
                 c.department = courseName[0].toUpperCase();
                 c.courseNumber = courseName[1].toUpperCase();
-                c.section = String.valueOf(Integer.parseInt(data.get(1).get(iter)));
+                c.section = data.get(1).get(iter).toUpperCase();
                 c.profFirstName = profName[1].toUpperCase();
                 c.profLastName = profName[0].replace(",", "").toUpperCase();
                 c.requirement = data.get(3).get(iter).toUpperCase();

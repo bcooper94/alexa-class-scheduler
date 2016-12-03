@@ -1,7 +1,13 @@
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
 import dal.Course;
 import dal.Database;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ParserDriver {
     private static final String[] QUARTERS = {"Fall", "Winter", "Spring"};
@@ -13,15 +19,28 @@ public class ParserDriver {
         for (String quarter : QUARTERS) {
             Scraper scraper = new Scraper(quarter);
 
-            Database db = new Database();
-            ArrayList<Course> courses;
-            for (String college : COLLEGES) {
-                courses = scraper.getCourseList(college);
-                db.create(courses);
-            }
+            try {
+                Scanner scan = new Scanner(new File("AWSCredentials.txt"));
+                String[] keys = new String[2];
 
-            ArrayList<Course> ges = scraper.getGEs();
-            db.create(ges);
+                for (int i = 0; i < 2 && scan.hasNextLine(); i++) {
+                    keys[i] = scan.nextLine();
+                }
+
+                AWSCredentials credentials = new BasicAWSCredentials(keys[0],
+                        keys[1]);
+                Database db = new Database(credentials);
+                ArrayList<Course> courses;
+                for (String college : COLLEGES) {
+                    courses = scraper.getCourseList(college);
+                    db.create(courses);
+                }
+
+                ArrayList<Course> ges = scraper.getGEs();
+                db.create(ges);
+            } catch (FileNotFoundException ex) {
+                System.err.println(ex.getMessage());
+            }
         }
     }
 }

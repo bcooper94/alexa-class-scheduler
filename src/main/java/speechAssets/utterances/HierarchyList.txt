@@ -1,3 +1,19 @@
+HierarchyList all of the departments in {College}
+HierarchyList the courses in {Department}
+HierarchyList the courses in {Department} for {Quarter}
+HierarchyList the courses in {Department} for {Quarter} {Year}
+HierarchyList all of the colleges
+HierarchyList all of the departments within {College}
+HierarchyList the courses within {Department}
+HierarchyList the courses within {Department} for {Quarter}
+HierarchyList the courses within {Department} for {Quarter} {Year}
+HierarchyList the sections of {Department} {CourseNum}
+HierarchyList the sections of {Department} {CourseNum} for {Quarter}
+HierarchyList the sections of {Department} {CourseNum} for {Quarter} {Year}
+HierarchyList the {GEType} courses
+HierarchyList the {GEType} courses for {Quarter}
+HierarchyList the {GEType} courses for {Quarter} {Year}
+HierarchyList the courses that fulfill the {GEType} requirement
 HierarchyList list all of the colleges
 HierarchyList list all of the departments within {College}
 HierarchyList list the courses within {Department}
@@ -10,3 +26,20 @@ HierarchyList list the {GEType} courses
 HierarchyList list the {GEType} courses for {Quarter}
 HierarchyList list the {GEType} courses for {Quarter} {Year}
 HierarchyList list the courses that fulfill the {GEType} requirement
+HierarchyList the classes in {Department}
+HierarchyList the classes in {Department} for {Quarter}
+HierarchyList the classes in {Department} for {Quarter} {Year}
+HierarchyList the classes within {Department}
+HierarchyList the classes within {Department} for {Quarter}
+HierarchyList the classes within {Department} for {Quarter} {Year}
+HierarchyList the {GEType} classes
+HierarchyList the {GEType} classes for {Quarter}
+HierarchyList the {GEType} classes for {Quarter} {Year}
+HierarchyList the classes that fulfill the {GEType} requirement
+HierarchyList list the classes within {Department}
+HierarchyList list the classes within {Department} for {Quarter}
+HierarchyList list the classes within {Department} for {Quarter} {Year}
+HierarchyList list the {GEType} classes
+HierarchyList list the {GEType} classes for {Quarter}
+HierarchyList list the {GEType} classes for {Quarter} {Year}
+HierarchyList list the classes that fulfill the {GEType} requirement

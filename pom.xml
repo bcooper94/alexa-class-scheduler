@@ -78,7 +78,7 @@
                     <artifactId>exec-maven-plugin</artifactId>
                     <version>1.2.1</version>
                     <configuration>
-                        <mainClass>Launcher</mainClass>
+                        <mainClass>ParserDriver</mainClass>
                         <systemProperties>
                             <systemProperty>
                                 <key>javax.net.ssl.keyStore</key>

@@ -11,6 +11,9 @@ import java.util.Map;
 import java.util.HashMap;
 
 // Create
+import com.amazonaws.ClientConfiguration;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Table;
@@ -41,32 +44,26 @@ public class Database {
    DynamoDB dynamoDB;
    int id;
 
-   public Database () {
+   public Database() {
       client = new AmazonDynamoDBClient();
       dynamoDB = new DynamoDB(client);
-      try {
-         Table table = dynamoDB.createTable("CoursesTest", 
-            Arrays.asList(new KeySchemaElement("id", KeyType.HASH)),
-            Arrays.asList(
-               new AttributeDefinition("id", ScalarAttributeType.N)
-            ),
-            new ProvisionedThroughput(1L, 1L)
-         );
-         table.waitForActive();
-         System.out.println("Success. Table status: " + table.getDescription().getTableStatus());
-      } catch (ResourceInUseException ex) {
-         System.out.println("Table already exists, proceeding ...");
-      } catch (Exception ex) {
-         System.err.println("Unable to create table: ");
-         ex.printStackTrace();
-      }
-      id = 0;
+      setupTable();
+   }
+
+   public Database (AWSCredentials credentials) {
+      client = new AmazonDynamoDBClient(credentials);
+      dynamoDB = new DynamoDB(client);
+      setupTable();
    }
 
    public Database(String endpoint) {
       client = new AmazonDynamoDBClient();
       client.withEndpoint(endpoint);
       dynamoDB = new DynamoDB(client);
+      setupTable();
+   }
+
+   private void setupTable() {
       try {
          Table table = dynamoDB.createTable("CoursesTest",
                  Arrays.asList(new KeySchemaElement("id", KeyType.HASH)),
