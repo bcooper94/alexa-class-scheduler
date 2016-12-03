@@ -49,6 +49,7 @@ public class Schedule {
         for (char c : days1.toCharArray()) {
             if (days2.indexOf(c) > 0) {
                 return true;
+            }
         }
         return false;
     }
