@@ -237,6 +237,31 @@
       ]
     },
     {
+      "intent": "ScheduleManager",
+      "slots": [
+        {
+          "name": "Department",
+          "type": "LIST_OF_DEPTS"
+        },
+        {
+          "name": "CourseNum",
+          "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "Quarter",
+          "type": "LIST_OF_QUARTERS"
+        },
+        {
+          "name": "Year",
+          "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "AddRemove",
+          "type": "ADD_REMOVE"
+        }
+      ]
+    },
+    {
       "intent": "AMAZON.HelpIntent"
     }
   ]
