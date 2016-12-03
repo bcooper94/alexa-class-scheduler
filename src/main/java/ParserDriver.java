@@ -33,13 +33,11 @@ public class ParserDriver {
                 ArrayList<Course> courses;
                 for (String college : COLLEGES) {
                     courses = scraper.getCourseList(college);
-//                    db.create(courses);
-                    System.out.println(String.format("Adding %s courses from %s", courses.size(), college));
+                    db.create(courses);
                 }
 
                 ArrayList<Course> ges = scraper.getGEs();
-                System.out.println(String.format("Adding %s GEs", ges.size()));
-//                db.create(ges);
+                db.create(ges);
             } catch (FileNotFoundException ex) {
                 System.err.println(ex.getMessage());
             }
