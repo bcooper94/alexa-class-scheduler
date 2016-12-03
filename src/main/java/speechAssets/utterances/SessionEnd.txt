@@ -1,0 +1,5 @@
+SessionEnd No
+SessionEnd Stop
+SessionEnd I'm done
+SessionEnd I'm finished
+SessionEnd Done

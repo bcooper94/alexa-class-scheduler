@@ -262,6 +262,9 @@
       ]
     },
     {
+      "intent": "SessionEnd"
+    },
+    {
       "intent": "AMAZON.HelpIntent"
     }
   ]
