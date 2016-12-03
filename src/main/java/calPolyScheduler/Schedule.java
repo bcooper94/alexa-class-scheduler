@@ -1,11 +1,16 @@
 package calPolyScheduler;
 
+import calPolyScheduler.intents.CourseResponseBuilder;
 import dal.Course;
+import dal.Query;
+import dal.QueryKey;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class Schedule {
     private static final SimpleDateFormat PARSE_FORMAT = new SimpleDateFormat("hh:mm a");
@@ -26,6 +31,12 @@ public class Schedule {
 
     public boolean removeCourse(Course course) {
         return list.remove(course);
+    }
+
+    public String getList() {
+        CourseResponseBuilder crb = new CourseResponseBuilder();
+        List<QueryKey> keys = Arrays.asList(QueryKey.DEPARTMENT, QueryKey.COURSE_NUM, QueryKey.SECTION);
+        return crb.convertCourse(list, keys);
     }
 
     private boolean checkConflicts(Course newCourse) {
