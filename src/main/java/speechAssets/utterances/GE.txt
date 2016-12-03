@@ -1,1 +1,51 @@
 GE list the GEs for {CourseRequirement}
+GE list the GEs for {CourseRequirement} in {Quarter}
+GE list the GEs for {CourseRequirement} in {Quarter} {Year}
+GE what are the GE classes for {CourseRequirement}
+GE what are the GE classes for {CourseRequirement} in {Quarter}
+GE what are the GE classes for {CourseRequirement} in {Quarter} {Year}
+GE what are the GE courses for {CourseRequirement}
+GE what are the GE courses for {CourseRequirement} in {Quarter}
+GE what are the GE courses for {CourseRequirement} in {Quarter} {Year}
+GE tell me the GE classes for {CourseRequirement}
+GE tell me the GE classes for {CourseRequirement} in {Quarter}
+GE tell me the GE classes for {CourseRequirement} in {Quarter} {Year}
+GE tell me the GE courses for {CourseRequirement}
+GE tell me the GE courses for {CourseRequirement} in {Quarter}
+GE tell me the GE courses for {CourseRequirement} in {Quarter} {Year}
+GE which courses are offered for {CourseRequirement}
+GE which courses are offered for {CourseRequirement} in {Quarter}
+GE which courses are offered for {CourseRequirement} in {Quarter} {Year}
+GE which classes are offered for {CourseRequirement}
+GE which classes are offered for {CourseRequirement} in {Quarter}
+GE which classes are offered for {CourseRequirement} in {Quarter} {Year}
+GE what courses are offered for {CourseRequirement}
+GE what courses are offered for {CourseRequirement} in {Quarter}
+GE what courses are offered for {CourseRequirement} in {Quarter} {Year}
+GE what courses are offered for {CourseRequirement}
+GE what courses are offered for {CourseRequirement} in {Quarter}
+GE what courses are offered for {CourseRequirement} in {Quarter} {Year}
+GE what courses fulfill the {CourseRequirement} requirement
+GE what courses fulfill the {CourseRequirement} requirement in {Quarter}
+GE what courses fulfill the {CourseRequirement} requirement in {Quarter} {Year}
+GE what classes fulfill the {CourseRequirement} requirement
+GE what classes fulfill the {CourseRequirement} requirement in {Quarter}
+GE what classes fulfill the {CourseRequirement} requirement in {Quarter} {Year}
+GE what can I take to fulfill the {CourseRequirement} requirement
+GE what can I take to fulfill the {CourseRequirement} requirement in {Quarter}
+GE what can I take to fulfill the {CourseRequirement} requirement in {Quarter} {Year}
+GE what are the {CourseRequirement} classes
+GE what are the {CourseRequirement} classes in {Quarter}
+GE what are the {CourseRequirement} classes in {Quarter} {Year}
+GE what are the {CourseRequirement} courses
+GE what are the {CourseRequirement} courses in {Quarter}
+GE what are the {CourseRequirement} courses in {Quarter} {Year}
+GE what can I take for {CourseRequirement}
+GE what can I take for {CourseRequirement} in {Quarter}
+GE what can I take for {CourseRequirement} in {Quarter} {Year}
+GE what are the {CourseRequirement} classes offered
+GE what are the {CourseRequirement} classes offered in {Quarter}
+GE what are the {CourseRequirement} classes offered in {Quarter} {Year}
+GE what are the {CourseRequirement} courses offered
+GE what are the {CourseRequirement} courses offered in {Quarter}
+GE what are the {CourseRequirement} courses offered in {Quarter} {Year}

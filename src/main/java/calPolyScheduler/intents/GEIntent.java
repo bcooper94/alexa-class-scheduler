@@ -6,11 +6,14 @@ import com.amazon.speech.speechlet.Session;
 import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.SimpleCard;
+import dal.Course;
+import dal.Query;
+import dal.QueryKey;
+import dal.QueryOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class GEIntent extends SchedulerIntent {
     public GEIntent(Intent intent, Session session) {
@@ -21,24 +24,23 @@ public class GEIntent extends SchedulerIntent {
     public SpeechletResponse createResponse() {
         log.info("GE Intent");
         String responseText = determineUtterance();
-
-        SimpleCard card = new SimpleCard();
-        card.setTitle("GE");
-        card.setContent(responseText);
-
-        PlainTextOutputSpeech response = new PlainTextOutputSpeech();
-        response.setText(responseText);
-
-        return SpeechletResponse.newTellResponse(response, card);
+        return setAnswer(responseText, "GE Intent", responseText);
     }
 
     private String determineUtterance() {
-        String val = "";
+        CourseResponseBuilder crb = new CourseResponseBuilder();
+        List<Query> queryList = new ArrayList<Query>();
+        String response = "";
 
         if (slots.get("CourseRequirement") != null) {
-            val = "You asked for all the courses in a specific GE";
+            response = addQuarterYear(queryList);
+            queryList.add(new Query(QueryKey.REQUIREMENT, slots.get("CourseRequirement"), QueryOperation.EQUAL));
+
+            List<Course> resultList = db.read(queryList);
+            List<QueryKey> types = Arrays.asList(QueryKey.DEPARTMENT, QueryKey.COURSE_NUM);
+            response += " Courses that are " + slots.get("CourseRequirement") + " include " + crb.convertCourse(resultList, types);
         }
 
-        return val;
+        return response;
     }
 }

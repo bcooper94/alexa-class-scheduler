@@ -2,5 +2,18 @@ CourseDaysOfWeek list the courses on {DayOne} in {Department}
 CourseDaysOfWeek list the courses on {DayOne} {DayTwo} in {Department}
 CourseDaysOfWeek list the courses on {DayOne} {DayTwo} {DayThree} in {Department}
 CourseDaysOfWeek list the courses on {DayOne} {DayTwo} {DayThree} {DayFour} in {Department}
+CourseDaysOfWeek list the classes on {DayOne} in {Department}
+CourseDaysOfWeek list the classes on {DayOne} {DayTwo} in {Department}
+CourseDaysOfWeek list the classes on {DayOne} {DayTwo} {DayThree} in {Department}
+CourseDaysOfWeek list the classes on {DayOne} {DayTwo} {DayThree} {DayFour} in {Department}
+CourseDaysOfWeek what are the courses offered on {DayOne} in {Department}
+CourseDaysOfWeek what are the courses offered on {DayOne} {DayTwo} in {Department}
+CourseDaysOfWeek what are the courses offered on {DayOne} {DayTwo} {DayThree} in {Department}
+CourseDaysOfWeek what are the courses offered on {DayOne} {DayTwo} {DayThree} {DayFour} in {Department}
+CourseDaysOfWeek what are the classes offered on {DayOne} in {Department}
+CourseDaysOfWeek what are the classes offered on {DayOne} {DayTwo} in {Department}
+CourseDaysOfWeek what are the classes offered on {DayOne} {DayTwo} {DayThree} in {Department}
+CourseDaysOfWeek what are the classes offered on {DayOne} {DayTwo} {DayThree} {DayFour} in {Department}
+
 CourseDaysOfWeek list the days of the week that {Department} {CourseNum} is offered
 CourseDaysOfWeek list the days of the week that {Department} {CourseNum} section {Section}

@@ -10,53 +10,39 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ParserDriver {
+    private static final String[] QUARTERS = {"Fall", "Winter", "Spring"};
+    private static final String[] COLLEGES = {
+            "CAGR", "CAED", "OCOB", "CLA", "CENG", "CSM", "ALL"
+    };
+
     public static void main(String[] args) {
-        String targetQuarter = (args.length > 0) ? args[0] : null;
-        Scraper scraper = new Scraper(targetQuarter);
+        for (String quarter : QUARTERS) {
+            Scraper scraper = new Scraper(quarter);
 
-        ArrayList<Course> courses = scraper.getCourseList("CENG");
-        ArrayList<Course> ges = scraper.getGEs();
-        System.out.println("Num courses: " + courses.size());
+            try {
+                Scanner scan = new Scanner(new File("AWSCredentials.txt"));
+                String[] keys = new String[2];
 
-        try {
-            Scanner scan = new Scanner(new File("AWSCredentials.txt"));
-            String[] keys = new String[2];
+                for (int i = 0; i < 2 && scan.hasNextLine(); i++) {
+                    keys[i] = scan.nextLine();
+                }
 
-            for (int i = 0; i < 2 && scan.hasNextLine(); i++) {
-                keys[i] = scan.nextLine();
+                AWSCredentials credentials = new BasicAWSCredentials(keys[0],
+                        keys[1]);
+                Database db = new Database(credentials);
+                ArrayList<Course> courses;
+                for (String college : COLLEGES) {
+                    courses = scraper.getCourseList(college);
+//                    db.create(courses);
+                    System.out.println(String.format("Adding %s courses from %s", courses.size(), college));
+                }
+
+                ArrayList<Course> ges = scraper.getGEs();
+                System.out.println(String.format("Adding %s GEs", ges.size()));
+//                db.create(ges);
+            } catch (FileNotFoundException ex) {
+                System.err.println(ex.getMessage());
             }
-
-            AWSCredentials credentials = new BasicAWSCredentials(keys[0],
-                    keys[1]);
-            Database db = new Database(credentials);
-            db.create(courses);
         }
-        catch (FileNotFoundException ex) {
-            System.err.println(ex.getMessage());
-        }
-
-//        db.create(ges);
-
-//        for(Course c : courses) {
-//            System.out.println(
-//                    "dept: " + c.department + " " +
-//                    " courseNum: " + c.courseNumber +
-//                    " sect: " + c.section +
-//                    " profFirst: " + c.profFirstName +
-//                    " profLast: " + c.profLastName +
-//                    " req: " + c.requirement +
-//                    " type: " + c.type +
-//                    " days: " + c.days +
-//                    " start: " + c.start +
-//                    " end: " + c.end +
-//                    " quarter: " + c.quarter +
-//                    " year: " + c.year +
-//                    " loc: " + c.location);
-//        }
-
-//        for(Course c : ges) {
-//            System.out.println(c.name + " " + c.section + " \'" + c.professor + "\' " +
-//              c.type + " " + c.days + " " + c.start + " " + c.end + " " + c.location);
-//        }
     }
 }
