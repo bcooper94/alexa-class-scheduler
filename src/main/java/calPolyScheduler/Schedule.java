@@ -29,11 +29,15 @@ public class Schedule {
     }
 
     private boolean checkConflicts(Course newCourse) {
-        
-
-        //check time
         String days = newCourse.days;
         for (Course c : list) {
+            //check class info
+            if (c.department.equals(newCourse.department) && c.courseNumber.equals(newCourse.courseNumber) &&
+                    c.type.equals(newCourse.type)) {
+                return true;
+            }
+
+            //check time
             if (matchingDays(c.days, days) && !noConflicts(newCourse.start, newCourse.end, c.start, c.end)) {
                 return true;
             }
