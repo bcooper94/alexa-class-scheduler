@@ -15,6 +15,8 @@ import java.util.List;
 public class Schedule {
     private static final SimpleDateFormat PARSE_FORMAT = new SimpleDateFormat("hh:mm a");
     private ArrayList<Course> list;
+    private String quarter = "";
+    private String year = "";
 
     public Schedule() {
         list = new ArrayList<>();
@@ -23,6 +25,12 @@ public class Schedule {
     public boolean addCourse(Course newCourse) {
         if (checkConflicts(newCourse)) {
             return false;
+        }
+        if (quarter.equals("")) {
+            quarter = newCourse.quarter;
+        }
+        if (year.equals("")) {
+            year = newCourse.year;
         }
 
         list.add(newCourse);
@@ -42,6 +50,10 @@ public class Schedule {
     private boolean checkConflicts(Course newCourse) {
         String days = newCourse.days;
         for (Course c : list) {
+            //check quarter and year
+            if (!quarter.equals("") && !quarter.equals(newCourse.quarter) || !year.equals("") && !year.equals(newCourse.year))
+                return true;
+
             //check class info
             if (c.department.equals(newCourse.department) && c.courseNumber.equals(newCourse.courseNumber) &&
                     c.type.equals(newCourse.type)) {
