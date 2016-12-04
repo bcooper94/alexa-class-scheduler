@@ -83,7 +83,7 @@ public class HierarchyListIntent extends SchedulerIntent {
                             college, quarter, year),
                     constraints, Arrays.asList(QueryKey.DEPARTMENT, QueryKey.COURSE_NUM));
         } else if (geType != null) {
-            constraints.add(new Query(QueryKey.TYPE, geType, QueryOperation.EQUAL));
+            constraints.add(new Query(QueryKey.REQUIREMENT, geType, QueryOperation.EQUAL));
             response = courseListResponse(
                     String.format("I found the following %s %s courses for %s %s",
                             spellOut(geType), spellOut("GE"), quarter, year),
