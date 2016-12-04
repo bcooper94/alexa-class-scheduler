@@ -162,7 +162,7 @@ public class SchedulerSpeechlet implements Speechlet {
     }
 
     private SpeechletResponse getNoMatchingIntentResponse() {
-        String speechText = "Sorry, you done fucked up your intent";
+        String speechText = "Sorry, I have no clue what intent you're talking about";
         PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
         speech.setText(speechText);
 
