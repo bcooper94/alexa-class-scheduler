@@ -47,22 +47,53 @@ public class HierarchyListIntent extends SchedulerIntent {
         if (department != null && courseNum != null) {
             constraints.add(new Query(QueryKey.DEPARTMENT, department, QueryOperation.EQUAL));
             constraints.add(new Query(QueryKey.COURSE_NUM, courseNum, QueryOperation.EQUAL));
-            response = courseListResponse(constraints, Arrays.asList(QueryKey.DAYS, QueryKey.TIME_RANGE),
-                    quarter, year);
+            response = courseListResponse(
+                    String.format("I found the following sections of %s %s for %s %s",
+                            spellOut(department), courseNum, quarter, year),
+                    String.format("Sorry, I wasn't able to find any sections of %s %s for %s %s",
+                            spellOut(department), courseNum, quarter, year),
+                    String.format("Sections of %s %s for %s %s\n",
+                            department, courseNum, quarter, year),
+                    String.format("No sections of %s %s were found for %s %s.",
+                            department, courseNum, quarter, year),
+                    constraints, Arrays.asList(QueryKey.DAYS, QueryKey.TIME_RANGE));
         }
         // Listing all courses within a department
         else if (department != null) {
             constraints.add(new Query(QueryKey.DEPARTMENT, department, QueryOperation.EQUAL));
-            response = courseListResponse(constraints, Arrays.asList(QueryKey.DEPARTMENT, QueryKey.COURSE_NUM),
-                    quarter, year);
+            response = courseListResponse(
+                    String.format("I found the following courses in the %s department for %s %s",
+                            spellOut(department), quarter, year),
+                    String.format("Sorry, I wasn't able to find any courses in the %s department for %s %s",
+                            spellOut(department), quarter, year),
+                    String.format("Courses in %s department for %s %s:\n",
+                            department, quarter, year),
+                    String.format("No courses found for the %s department for %s %s",
+                            department, quarter, year),
+                    constraints, Arrays.asList(QueryKey.DEPARTMENT, QueryKey.COURSE_NUM));
         } else if (college != null) {
             constraints.add(new Query(QueryKey.COLLEGE, college, QueryOperation.EQUAL));
-            response = courseListResponse(constraints, Arrays.asList(QueryKey.DEPARTMENT, QueryKey.COURSE_NUM),
-                    quarter, year);
+            response = courseListResponse(
+                    String.format("I found the following courses in %s for %s %s",
+                            college, quarter, year),
+                    String.format("Sorry, I wasn't able to find any courses in %s for %s %s",
+                            college, quarter, year),
+                    String.format("Courses in %s for %s %s:\n", college, quarter, year),
+                    String.format("No courses found in %s for %s %s.",
+                            college, quarter, year),
+                    constraints, Arrays.asList(QueryKey.DEPARTMENT, QueryKey.COURSE_NUM));
         } else if (geType != null) {
             constraints.add(new Query(QueryKey.TYPE, geType, QueryOperation.EQUAL));
-            response = courseListResponse(constraints, Arrays.asList(QueryKey.DEPARTMENT, QueryKey.COURSE_NUM),
-                    quarter, year);
+            response = courseListResponse(
+                    String.format("I found the following %s %s courses for %s %s",
+                            spellOut(geType), spellOut("GE"), quarter, year),
+                    String.format("Sorry, I wasn't able to find any %s %s for %s %s",
+                            spellOut(geType), spellOut("GE"), quarter, year),
+                    String.format("%s GE courses for %s %s:\n",
+                            geType, quarter, year),
+                    String.format("No GE %s courses found for %s %s",
+                            geType, quarter, year),
+                    constraints, Arrays.asList(QueryKey.DEPARTMENT, QueryKey.COURSE_NUM));
         } else {
             String collegeResponse = "The colleges are: the College of Agriculture Food" +
                     " and Environmental Science, the College of Architecture and Environmental" +
@@ -78,24 +109,21 @@ public class HierarchyListIntent extends SchedulerIntent {
         return response;
     }
 
-    private SpeechletResponse courseListResponse(List<Query> queries, List<QueryKey> responseKeys,
-                                                 String quarter, String year) {
+    private SpeechletResponse courseListResponse(String responseHeader, String defaultResponse,
+                                                 String cardHeader, String defaultCardContent,
+                                                 List<Query> queries, List<QueryKey> responseKeys) {
         SpeechletResponse response;
         CourseResponseBuilder responseBuilder = new CourseResponseBuilder();
         List<Course> courses = db.read(queries);
-        String cardTitle = "Section Timings",
-                defaultSpeech = String.format("Sorry, I wasn't able to find any courses for %s %s",
-                        quarter, year),
-                defaultCardContent = String.format("No matching courses were found for %s %s.",
-                        quarter, year);
+        String cardTitle = "Section Timings";
 
         if (courses.size() > 0) {
-            String courseOutput = String.format("I found the following courses for %s %s. ",
-                    quarter, year) + responseBuilder.convertCourse(courses, responseKeys);
+            String courseOutput = responseHeader + responseBuilder.convertCourse(courses, responseKeys);
+            String cardOutput = cardHeader + responseBuilder.getCardContent(courses, responseKeys);
             log.info("HierarchyList response text: {}", courseOutput);
-            response = setAnswer(courseOutput, cardTitle, courseOutput);
+            response = setAnswer(courseOutput, cardTitle, cardOutput);
         } else {
-            response = setAnswer(defaultSpeech, cardTitle, defaultCardContent);
+            response = setAnswer(defaultResponse, cardTitle, defaultCardContent);
         }
 
         return response;
@@ -111,5 +139,9 @@ public class HierarchyListIntent extends SchedulerIntent {
         reprompt.setOutputSpeech(repromptText);
 
         return SpeechletResponse.newAskResponse(askOutput, reprompt);
+    }
+
+    private String spellOut(String input) {
+        return "<say-as interpret-as=\"spell-out\">" + input + "</say-as>";
     }
 }
