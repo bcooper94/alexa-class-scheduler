@@ -36,12 +36,12 @@ public class CourseResponseBuilderTest {
                 QueryKey.COLLEGE);
 
         CourseResponseBuilder crb = new CourseResponseBuilder();
-        assertEquals("<say-as interpret-as=\"spell-out\">department</say-as> " +
-            "courseNumber " + "section " + "profFirstName " + "profLastName " +
+        assertEquals("<say-as interpret-as=\"spell-out\">DEPARTMENT</say-as> " +
+            "courseNumber " + "SECTION " + "PROFFIRSTNAME " + "PROFLASTNAME " +
                 "<say-as interpret-as=\"spell-out\">SAD</say-as> " + "independent study " +
                 "Monday Tuesday Wednesday Thursday Friday " +
                 "<say-as interpret-as=\"time\">8:00 PM</say-as> " +
-                "<say-as interpret-as=\"time\">2:00 AM</say-as> " + "Fall " + "2016 " +
+                "<say-as interpret-as=\"time\">2:00 AM</say-as> " + "FALL " + "2016 " +
                 "building 22 room 434 " + "No college for you ,",
                 crb.convertCourse(courses, types));
     }

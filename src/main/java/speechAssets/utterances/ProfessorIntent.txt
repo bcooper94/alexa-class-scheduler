@@ -10,18 +10,18 @@ ProfessorIntent list the classes taught by {ProfessorLastName} in {Quarter} {Yea
 ProfessorIntent list the classes taught by Professor {ProfessorLastName}
 ProfessorIntent list the classes taught by Professor {ProfessorLastName} in {Quarter}
 ProfessorIntent list the classes taught by Professor {ProfessorLastName} in {Quarter} {Year}
-ProfessorIntent what courses are {ProfessorLastName} teaching
-ProfessorIntent what courses are {ProfessorLastName} teaching in {Quarter}
-ProfessorIntent what courses are {ProfessorLastName} teaching in {Quarter} {Year}
-ProfessorIntent what courses are Professor {ProfessorLastName} teaching
-ProfessorIntent what courses are Professor {ProfessorLastName} teaching in {Quarter}
-ProfessorIntent what courses are Professor {ProfessorLastName} teaching in {Quarter} {Year}
-ProfessorIntent what classes are {ProfessorLastName} teaching
-ProfessorIntent what classes are {ProfessorLastName} teaching in {Quarter}
-ProfessorIntent what classes are {ProfessorLastName} teaching in {Quarter} {Year}
-ProfessorIntent what classes are Professor {ProfessorLastName} teaching
-ProfessorIntent what classes are Professor {ProfessorLastName} teaching in {Quarter}
-ProfessorIntent what classes are Professor {ProfessorLastName} teaching in {Quarter} {Year}
+ProfessorIntent what courses is {ProfessorLastName} teaching
+ProfessorIntent what courses is {ProfessorLastName} teaching in {Quarter}
+ProfessorIntent what courses is {ProfessorLastName} teaching in {Quarter} {Year}
+ProfessorIntent what courses is Professor {ProfessorLastName} teaching
+ProfessorIntent what courses is Professor {ProfessorLastName} teaching in {Quarter}
+ProfessorIntent what courses is Professor {ProfessorLastName} teaching in {Quarter} {Year}
+ProfessorIntent what classes is {ProfessorLastName} teaching
+ProfessorIntent what classes is {ProfessorLastName} teaching in {Quarter}
+ProfessorIntent what classes is {ProfessorLastName} teaching in {Quarter} {Year}
+ProfessorIntent what classes is Professor {ProfessorLastName} teaching
+ProfessorIntent what classes is Professor {ProfessorLastName} teaching in {Quarter}
+ProfessorIntent what classes is Professor {ProfessorLastName} teaching in {Quarter} {Year}
 ProfessorIntent what is {ProfessorLastName} teaching
 ProfessorIntent what is {ProfessorLastName} teaching in {Quarter}
 ProfessorIntent what is {ProfessorLastName} teaching in {Quarter} {Year}
