@@ -45,4 +45,36 @@ public class CourseResponseBuilderTest {
                 "building 22 room 434 " + "No college for you ,",
                 crb.convertCourse(courses, types));
     }
+
+    @Test
+    public void testThis2() {
+        ArrayList<Course> courses = new ArrayList<>();
+        courses.add(new Course("department", "courseNumber", "section",
+                "profFirstName", "profLastName", "SAD", "Ind", "MTWRF",
+                "8:00 PM", "2:00 AM", "Fall", "2016", "022-0434"));
+        List<QueryKey> types =  Arrays.asList(
+                QueryKey.DEPARTMENT,
+                QueryKey.COURSE_NUM,
+                QueryKey.SECTION,
+                QueryKey.FIRST_NAME,
+                QueryKey.LAST_NAME,
+                QueryKey.REQUIREMENT,
+                QueryKey.TYPE,
+                QueryKey.DAYS,
+                QueryKey.START,
+                QueryKey.END,
+                QueryKey.QUARTER,
+                QueryKey.YEAR,
+                QueryKey.LOCATION,
+                QueryKey.COLLEGE);
+
+        CourseResponseBuilder crb = new CourseResponseBuilder();
+        assertEquals("DEPARTMENT " +
+                        "courseNumber " + "SECTION " + "PROFFIRSTNAME " + "PROFLASTNAME " +
+                        "SAD " + "independent study " +
+                        "Monday Tuesday Wednesday Thursday Friday " +
+                        "8:00 PM " + "2:00 AM " + "FALL " + "2016 " +
+                        "building 22 room 434 " + "No college for you ,",
+                crb.convertCourse(courses, types));
+    }
 }

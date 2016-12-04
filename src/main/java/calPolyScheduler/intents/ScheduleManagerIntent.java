@@ -17,14 +17,15 @@ public class ScheduleManagerIntent extends SchedulerIntent {
 
     public SpeechletResponse createResponse() {
         log.info("Schedule Manager Intent");
-        String responseText = determineUtterance();
-        return setAnswer(responseText, "Course Days of Week Intent", responseText);
+        String[] responseText = determineUtterance();
+        return setAnswer(responseText[0], "Course Days of Week Intent", responseText[1]);
     }
 
-    private String determineUtterance() {
+    private String[] determineUtterance() {
         CourseResponseBuilder crb = new CourseResponseBuilder();
         List<Query> queryList = new ArrayList<Query>();
         String response = "";
+        String card = "";
         Schedule schedule = getSchedule();
 
         if (slots.get("AddRemove")!= null && slots.get("Department") != null &&
@@ -46,14 +47,17 @@ public class ScheduleManagerIntent extends SchedulerIntent {
             }
 
             List<QueryKey> keys = Arrays.asList(QueryKey.DEPARTMENT, QueryKey.COURSE_NUM, QueryKey.SECTION);
+            card = new String(response);
             response += crb.convertCourse(resultList, keys);
+            card += crb.getCardContent(resultList, keys);
         }
         else {
             //list courses currently stored in schedule
             response += "Your schedule is " + schedule.getList();
+            card += "Your schedule is " + schedule.getLisForList();
         }
 
-        return response;
+        return new String[] {response, card};
     }
 
     private Schedule getSchedule() {

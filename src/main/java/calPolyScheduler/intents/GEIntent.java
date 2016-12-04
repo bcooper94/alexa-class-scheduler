@@ -23,14 +23,15 @@ public class GEIntent extends SchedulerIntent {
     @Override
     public SpeechletResponse createResponse() {
         log.info("GE Intent");
-        String responseText = determineUtterance();
-        return setAnswer(responseText, "GE Intent", responseText);
+        String[] responseText = determineUtterance();
+        return setAnswer(responseText[0], "GE Intent", responseText[1]);
     }
 
-    private String determineUtterance() {
+    private String[] determineUtterance() {
         CourseResponseBuilder crb = new CourseResponseBuilder();
         List<Query> queryList = new ArrayList<Query>();
         String response = "";
+        String card = "";
 
         if (slots.get("CourseRequirement") != null) {
             response = addQuarterYear(queryList);
@@ -38,9 +39,11 @@ public class GEIntent extends SchedulerIntent {
 
             List<Course> resultList = db.read(queryList);
             List<QueryKey> types = Arrays.asList(QueryKey.DEPARTMENT, QueryKey.COURSE_NUM);
+            card = new String(response);
             response += " Courses that are " + slots.get("CourseRequirement") + " include " + crb.convertCourse(resultList, types);
+            card += " Courses that are " + slots.get("CourseRequirement") + " include " + crb.getCardContent(resultList, types);
         }
 
-        return response;
+        return new String[] {response, card};
     }
 }

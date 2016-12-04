@@ -47,6 +47,12 @@ public class Schedule {
         return crb.convertCourse(list, keys);
     }
 
+    public String getLisForList() {
+        CourseResponseBuilder crb = new CourseResponseBuilder();
+        List<QueryKey> keys = Arrays.asList(QueryKey.DEPARTMENT, QueryKey.COURSE_NUM, QueryKey.SECTION);
+        return crb.getCardContent(list, keys);
+    }
+
     private boolean checkConflicts(Course newCourse) {
         String days = newCourse.days;
         for (Course c : list) {

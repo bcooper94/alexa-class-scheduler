@@ -27,7 +27,7 @@ public class CourseResponseBuilder {
 
         for (Course c : list) {
             for (QueryKey k : keys) {
-                response.append(courseVar(c, k, true) + " ");
+                response.append(courseVar(c, k, true) + "\n");
             }
             response.append(",");
         }
@@ -74,8 +74,9 @@ public class CourseResponseBuilder {
             case DAYS:
                 return convertDays(c.days);
             case TIME_RANGE:
-                return isCard ? c.start + " to " + c.end : "from <say-as interpret-as=\"time\">"
-                        + c.start + "</say-as> to " + "<say-as interpret-as=\"time\">" + c.end + "</say-as>";
+                return isCard ? c.start + "-" + c.end :
+                        "from <say-as interpret-as=\"time\">" + c.start + "</say-as> to " +
+                        "<say-as interpret-as=\"time\">" + c.end + "</say-as>";
             case START:
                 return isCard ? c.start : "<say-as interpret-as=\"time\">" + c.start + "</say-as>";
             case END:

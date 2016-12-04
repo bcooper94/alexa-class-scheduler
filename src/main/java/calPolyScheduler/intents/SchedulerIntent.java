@@ -148,17 +148,17 @@ public abstract class SchedulerIntent {
         if (slots.get("Quarter") != null && slots.get("Year") != null) {
             queryList.add(new Query(QueryKey.QUARTER, slots.get("Quarter"), QueryOperation.EQUAL, QueryLogic.AND));
             queryList.add(new Query(QueryKey.YEAR, slots.get("Year"), QueryOperation.EQUAL, QueryLogic.AND));
-            response = "In " + slots.get("Quarter") + " " + slots.get("Year") + " ";
+            response = "in " + slots.get("Quarter") + " " + slots.get("Year") + " ";
         }
         else if (slots.get("Quarter") != null) {
             queryList.add(new Query(QueryKey.QUARTER, slots.get("Quarter"), QueryOperation.EQUAL, QueryLogic.AND));
             queryList.add(new Query(QueryKey.YEAR, getCurrentYear(), QueryOperation.EQUAL, QueryLogic.AND));
-            response = "In " + slots.get("Quarter") + " " + getCurrentYear() + " ";
+            response = "in " + slots.get("Quarter") + " " + getCurrentYear() + " ";
         }
         else {
             queryList.add(new Query(QueryKey.QUARTER, getCurrentQuarter(), QueryOperation.EQUAL, QueryLogic.AND));
             queryList.add(new Query(QueryKey.YEAR, getCurrentYear(), QueryOperation.EQUAL, QueryLogic.AND));
-            response = "In " + getCurrentQuarter() + " " + getCurrentYear() + " ";
+            response = "in " + getCurrentQuarter() + " " + getCurrentYear() + " ";
         }
         return response;
     }
