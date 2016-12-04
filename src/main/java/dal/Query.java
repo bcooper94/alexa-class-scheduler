@@ -26,6 +26,13 @@ public class Query {
             value = "0" + section;
          }
       }
+      else if (key.equals(QueryKey.COURSE_NUM)) {
+         String courseNum = (String) value;
+         if (courseNum.startsWith("0")) {
+            value = courseNum.substring(1);
+            System.out.println(String.format("Changed %s to %s", courseNum, value));
+         }
+      }
       this.key = key;
       this.value = value;
       this.operation = operation;

@@ -31,4 +31,16 @@ public class QueryTest {
         assertEquals("Pads section with 0", "09", q9.value);
         assertEquals("Doesn't pad sections above 9 with 0", "10", q10.value);
     }
+
+    @Test
+    public void testCourseNumQuery() {
+        Query q1 = new Query(QueryKey.COURSE_NUM, "0101", QueryOperation.EQUAL),
+                q2 = new Query(QueryKey.COURSE_NUM, "101", QueryOperation.EQUAL),
+                q3 = new Query(QueryKey.COURSE_NUM, "0305", QueryOperation.EQUAL),
+                q4 = new Query(QueryKey.COURSE_NUM, "357", QueryOperation.EQUAL);
+        assertEquals("101", q1.value);
+        assertEquals("101", q2.value);
+        assertEquals("305", q3.value);
+        assertEquals("357", q4.value);
+    }
 }
