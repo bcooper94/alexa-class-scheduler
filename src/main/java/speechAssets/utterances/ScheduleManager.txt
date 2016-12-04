@@ -1,2 +1,3 @@
 ScheduleManager {AddRemove} {Department} {CourseNum} {Section} to my schedule
 ScheduleManager List my schedule
+ScheduleManager my schedule
