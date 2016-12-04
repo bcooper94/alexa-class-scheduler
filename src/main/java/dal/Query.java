@@ -20,6 +20,12 @@ public class Query {
    public Query() {}
 
    public Query(QueryKey key, Object value, QueryOperation operation) {
+      if (key.equals(QueryKey.SECTION)) {
+         String section = (String) value;
+         if (Integer.parseInt(section) < 10 && !section.startsWith("0")) {
+            value = "0" + section;
+         }
+      }
       this.key = key;
       this.value = value;
       this.operation = operation;

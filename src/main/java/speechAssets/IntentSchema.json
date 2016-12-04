@@ -248,6 +248,10 @@
           "type": "AMAZON.NUMBER"
         },
         {
+          "name": "Section",
+          "type": "AMAZON.NUMBER"
+        },
+        {
           "name": "Quarter",
           "type": "LIST_OF_QUARTERS"
         },
