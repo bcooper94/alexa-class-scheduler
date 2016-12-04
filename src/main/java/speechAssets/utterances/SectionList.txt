@@ -1,1 +1,30 @@
 SectionList list the {Type} for {Department} {CourseNum}
+SectionList list the {Type} for {Department} {CourseNum} in {Quarter}
+SectionList list the {Type} for {Department} {CourseNum} in {Quarter} {Year}
+SectionList list the {Type} for {Department} {CourseNum} for {Quarter}
+SectionList list the {Type} for {Department} {CourseNum} for {Quarter} {Year}
+SectionList what {Type} does {Department} {CourseNum} have
+SectionList what {Type} does {Department} {CourseNum} have in {Quarter}
+SectionList what {Type} does {Department} {CourseNum} have in {Quarter} {Year}
+SectionList what {Type} does {Department} {CourseNum} have for {Quarter}
+SectionList what {Type} does {Department} {CourseNum} have for {Quarter} {Year}
+SectionList get me all of the {Type} for {Department} {CourseNum}
+SectionList get me all of the {Type} for {Department} {CourseNum} in {Quarter}
+SectionList get me all of the {Type} for {Department} {CourseNum} in {Quarter} {Year}
+SectionList get me all of the {Type} for {Department} {CourseNum} for {Quarter}
+SectionList get me all of the {Type} for {Department} {CourseNum} for {Quarter} {Year}
+SectionList get me the {Type} for {Department} {CourseNum}
+SectionList get me the {Type} for {Department} {CourseNum} in {Quarter}
+SectionList get me the {Type} for {Department} {CourseNum} in {Quarter} {Year}
+SectionList get me the {Type} for {Department} {CourseNum} for {Quarter}
+SectionList get me the {Type} for {Department} {CourseNum} for {Quarter} {Year}
+SectionList what are the {Type} for {Department} {CourseNum}
+SectionList what are the {Type} for {Department} {CourseNum} in {Quarter}
+SectionList what are the {Type} for {Department} {CourseNum} in {Quarter} {Year}
+SectionList what are the {Type} for {Department} {CourseNum} for {Quarter}
+SectionList what are the {Type} for {Department} {CourseNum} for {Quarter} {Year}
+SectionList tell me the {Type} for {Department} {CourseNum}
+SectionList tell me the {Type} for {Department} {CourseNum} in {Quarter}
+SectionList tell me the {Type} for {Department} {CourseNum} in {Quarter} {Year}
+SectionList tell me the {Type} for {Department} {CourseNum} for {Quarter}
+SectionList tell me the {Type} for {Department} {CourseNum} for {Quarter} {Year}
