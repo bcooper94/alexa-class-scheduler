@@ -26,11 +26,14 @@ import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.Reprompt;
 import com.amazon.speech.ui.SimpleCard;
 
+import java.util.HashMap;
+
 /**
  * This sample shows how to create a simple speechlet for handling speechlet requests.
  */
 public class SchedulerSpeechlet implements Speechlet {
     private static final Logger log = LoggerFactory.getLogger(SchedulerSpeechlet.class);
+    private static HashMap<String, Schedule> sessionToSchedule = new HashMap<>();
 
     @Override
     public void onSessionStarted(final SessionStartedRequest request, final Session session)
@@ -75,7 +78,15 @@ public class SchedulerSpeechlet implements Speechlet {
             case "ProfessorIntent":
                 return new ProfessorIntent(intent, session).createResponse();
             case "ScheduleManager":
-                return new ScheduleManagerIntent(intent, session).createResponse();
+                Schedule schedule = sessionToSchedule.get(session.getSessionId());
+
+                if (schedule == null) {
+                    log.info("Adding new Schedule to sessionToSchedule map");
+                    schedule = new Schedule();
+                    sessionToSchedule.put(session.getSessionId(), schedule);
+                }
+
+                return new ScheduleManagerIntent(intent, session, schedule).createResponse();
             case "SessionEnd":
                 return new SessionEndIntent(intent, session).createResponse();
             case "AMAZON.HelpIntent":
@@ -90,6 +101,9 @@ public class SchedulerSpeechlet implements Speechlet {
             throws SpeechletException {
         log.info("onSessionEnded requestId={}, sessionId={}", request.getRequestId(),
                 session.getSessionId());
+        if (sessionToSchedule.containsKey(session.getSessionId())) {
+            sessionToSchedule.remove(session.getSessionId());
+        }
         // any cleanup logic goes here
     }
 

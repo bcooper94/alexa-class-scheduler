@@ -11,8 +11,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ScheduleManagerIntent extends SchedulerIntent {
-    public ScheduleManagerIntent(Intent intent, Session session) {
+    private Schedule schedule;
+
+    public ScheduleManagerIntent(Intent intent, Session session, Schedule schedule) {
         super(intent, session);
+        this.schedule = schedule;
+        log.info("Schedule={}", schedule.getList());
     }
 
     public SpeechletResponse createResponse() {
@@ -36,7 +40,7 @@ public class ScheduleManagerIntent extends SchedulerIntent {
             List<Course> resultList = db.read(queryList);
 
             //add
-            if (slots.get("AddRemove").equals("add")) {
+            if (slots.get("AddRemove").toLowerCase().equals("add")) {
                 response += schedule.addCourse(resultList.get(0)) ?
                         "Successfully added " : "Failed to add ";
             }
@@ -61,15 +65,15 @@ public class ScheduleManagerIntent extends SchedulerIntent {
     }
 
     private Schedule getSchedule() {
-        Schedule s = null;
-        if (session.getAttribute("schedule") == null) {
-            s = new Schedule();
-            session.setAttribute("schedule", s);
-        }
-        else {
-            s = (Schedule) session.getAttribute("schedule");
-        }
+//        Schedule s = null;
+//        if (session.getAttribute("schedule") == null) {
+//            s = new Schedule();
+//            session.setAttribute("schedule", s);
+//        }
+//        else {
+//            s = (Schedule) session.getAttribute("schedule");
+//        }
 
-        return s;
+        return schedule;
     }
 }
