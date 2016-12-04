@@ -22,7 +22,7 @@ public class ScheduleManagerIntent extends SchedulerIntent {
     public SpeechletResponse createResponse() {
         log.info("Schedule Manager Intent");
         String[] responseText = determineUtterance();
-        return setAnswer(responseText[0], "Course Days of Week Intent", responseText[1]);
+        return setAnswer(responseText[0], "Schedule Manager Intent", responseText[1]);
     }
 
     private String[] determineUtterance() {
@@ -30,7 +30,6 @@ public class ScheduleManagerIntent extends SchedulerIntent {
         List<Query> queryList = new ArrayList<Query>();
         String response = "";
         String card = "";
-        Schedule schedule = getSchedule();
 
         if (slots.get("AddRemove")!= null && slots.get("Department") != null &&
                 slots.get("CourseNum") != null && slots.get("Section") != null) {
@@ -39,15 +38,20 @@ public class ScheduleManagerIntent extends SchedulerIntent {
             queryList.add(new Query(QueryKey.COURSE_NUM, slots.get("CourseNum"), QueryOperation.EQUAL));
             List<Course> resultList = db.read(queryList);
 
-            //add
-            if (slots.get("AddRemove").toLowerCase().equals("add")) {
-                response += schedule.addCourse(resultList.get(0)) ?
-                        "Successfully added " : "Failed to add ";
+            if (resultList.size() > 0) {
+                //add
+                if (slots.get("AddRemove").toLowerCase().equals("add")) {
+                    response += schedule.addCourse(resultList.get(0)) ?
+                            "Successfully added " : "Failed to add ";
+                }
+                //remove
+                else {
+                    response += schedule.removeCourse(resultList.get(0)) ?
+                            "Successfully removed " : "Your schedule did not contain ";
+                }
             }
-            //remove
             else {
-                response += schedule.removeCourse(resultList.get(0)) ?
-                        "Successfully removed " : "Your schedule did not contain ";
+                response += "Could not find the requested course ";
             }
 
             List<QueryKey> keys = Arrays.asList(QueryKey.DEPARTMENT, QueryKey.COURSE_NUM, QueryKey.SECTION);
@@ -62,18 +66,5 @@ public class ScheduleManagerIntent extends SchedulerIntent {
         }
 
         return new String[] {response, card};
-    }
-
-    private Schedule getSchedule() {
-//        Schedule s = null;
-//        if (session.getAttribute("schedule") == null) {
-//            s = new Schedule();
-//            session.setAttribute("schedule", s);
-//        }
-//        else {
-//            s = (Schedule) session.getAttribute("schedule");
-//        }
-
-        return schedule;
     }
 }

@@ -38,7 +38,14 @@ public class Schedule {
     }
 
     public boolean removeCourse(Course course) {
-        return list.remove(course);
+        for (Course c : list) {
+            if (course.department.equals(c.department) && course.courseNumber.equals(c.courseNumber)
+                    && course.section.equals(c.section)) {
+                list.remove(c);
+                return true;
+            }
+        }
+        return false;
     }
 
     public String getList() {
