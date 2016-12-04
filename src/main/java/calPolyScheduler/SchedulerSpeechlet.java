@@ -74,6 +74,8 @@ public class SchedulerSpeechlet implements Speechlet {
                 return new LocationsIntent(intent, session).createResponse();
             case "ProfessorIntent":
                 return new ProfessorIntent(intent, session).createResponse();
+            case "ScheduleManager":
+                return new ScheduleManagerIntent(intent, session).createResponse();
             case "SessionEnd":
                 return new SessionEndIntent(intent, session).createResponse();
             case "AMAZON.HelpIntent":

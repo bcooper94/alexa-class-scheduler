@@ -27,9 +27,9 @@ public class CourseResponseBuilder {
 
         for (Course c : list) {
             for (QueryKey k : keys) {
-                response.append(courseVar(c, k, true) + "\n");
+                response.append(courseVar(c, k, true) + " ");
             }
-            response.append(",");
+            response.append(",\n");
         }
 
         return response.toString();
