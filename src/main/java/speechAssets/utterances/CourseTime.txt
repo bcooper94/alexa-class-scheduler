@@ -25,20 +25,11 @@ CourseTime list all sections of {Department} {CourseNum} between {StartTime} and
 CourseTime list all the sections of {Department} {CourseNum} between {StartTime} and {EndTime} in {Quarter} {Year}
 CourseTime list all of the sections of {Department} {CourseNum} between {StartTime} and {EndTime} in {Quarter} {Year}
 
-CourseTime list the sections of {Department} {CourseNum} {BeforeAfter} {SingleTime} for {Quarter} {Year}
-CourseTime list all sections of {Department} {CourseNum} {BeforeAfter} {SingleTime} for {Quarter} {Year}
-CourseTime list all the sections of {Department} {CourseNum} {BeforeAfter} {SingleTime} for {Quarter} {Year}
-CourseTime list all of the sections of {Department} {CourseNum} {BeforeAfter} {SingleTime} for {Quarter} {Year}
-CourseTime list the sections of {Department} {CourseNum} between {StartTime} and {EndTime} for {Quarter} {Year}
-CourseTime list all sections of {Department} {CourseNum} between {StartTime} and {EndTime} for {Quarter} {Year}
-CourseTime list all the sections of {Department} {CourseNum} between {StartTime} and {EndTime} for {Quarter} {Year}
-CourseTime list all of the sections of {Department} {CourseNum} between {StartTime} and {EndTime} for {Quarter} {Year}
-
-CourseTime list the sections of {Department} {CourseNum} {BeforeAfter} {SingleTime} for {Quarter} {Year}
-CourseTime list all sections of {Department} {CourseNum} {BeforeAfter} {SingleTime} for {Quarter} {Year}
-CourseTime list all the sections of {Department} {CourseNum} {BeforeAfter} {SingleTime} for {Quarter} {Year}
-CourseTime list all of the sections of {Department} {CourseNum} {BeforeAfter} {SingleTime} for {Quarter} {Year}
-CourseTime list the sections of {Department} {CourseNum} between {StartTime} and {EndTime} for {Quarter} {Year}
-CourseTime list all sections of {Department} {CourseNum} between {StartTime} and {EndTime} for {Quarter} {Year}
-CourseTime list all the sections of {Department} {CourseNum} between {StartTime} and {EndTime} for {Quarter} {Year}
-CourseTime list all of the sections of {Department} {CourseNum} between {StartTime} and {EndTime} for {Quarter} {Year}
+CourseTime get me the sections of {Department} {CourseNum} {BeforeAfter} {SingleTime} for {Quarter} {Year}
+CourseTime get me all sections of {Department} {CourseNum} {BeforeAfter} {SingleTime} for {Quarter} {Year}
+CourseTime get me all the sections of {Department} {CourseNum} {BeforeAfter} {SingleTime} for {Quarter} {Year}
+CourseTime get me all of the sections of {Department} {CourseNum} {BeforeAfter} {SingleTime} for {Quarter} {Year}
+CourseTime get me the sections of {Department} {CourseNum} between {StartTime} and {EndTime} for {Quarter} {Year}
+CourseTime get me all sections of {Department} {CourseNum} between {StartTime} and {EndTime} for {Quarter} {Year}
+CourseTime get me all the sections of {Department} {CourseNum} between {StartTime} and {EndTime} for {Quarter} {Year}
+CourseTime get me all of the sections of {Department} {CourseNum} between {StartTime} and {EndTime} for {Quarter} {Year}

@@ -7,14 +7,20 @@ import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazon.speech.ui.*;
 import dal.*;
 
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by brandon on 11/5/16.
  */
 public class CourseTimeIntent extends SchedulerIntent {
+    SimpleDateFormat formatter = new SimpleDateFormat("hh:mm a");
+    SimpleDateFormat militaryFormatter = new SimpleDateFormat("HH:mm");
+
     public CourseTimeIntent(Intent intent, Session session) {
         super(intent, session);
     }
@@ -103,15 +109,11 @@ public class CourseTimeIntent extends SchedulerIntent {
 
 
         if (department != null && courseNum != null && singleTime != null && timeComparison != null) {
+            Date singleTimeDate = militaryFormatter.parse(singleTime, new ParsePosition(0));
             response.append(addQuarterYear(queryList));
-            queryList.add(new Query(QueryKey.TYPE, "lecture", QueryOperation.EQUAL, QueryLogic.AND));
+            queryList.add(new Query(QueryKey.TYPE, "LEC", QueryOperation.EQUAL, QueryLogic.AND));
             queryList.add(new Query(QueryKey.DEPARTMENT, department, QueryOperation.EQUAL, QueryLogic.AND));
-            queryList.add(new Query(QueryKey.COURSE_NUM, courseNum, QueryOperation.EQUAL, QueryLogic.AND));
-
-            if (timeComparison.equals("Before"))
-                queryList.add(new Query(QueryKey.END, endTime, QueryOperation.LESS_THAN_OR_EQUAL));
-            else
-                queryList.add(new Query(QueryKey.START, startTime, QueryOperation.GREATER_THAN_OR_EQUAL));
+            queryList.add(new Query(QueryKey.COURSE_NUM, courseNum, QueryOperation.EQUAL));//, QueryLogic.AND));
 
             //Query the database!!!
             List<Course> resultList = db.read(queryList);
@@ -119,24 +121,34 @@ public class CourseTimeIntent extends SchedulerIntent {
                     QueryKey.LAST_NAME, QueryKey.DAYS, QueryKey.START, QueryKey.END,
                     QueryKey.LOCATION);
 
-            response.append(crb.addSpellOut(department) + crb.addSpellOut(courseNum)
-                    + " has ");
+            response.append(crb.addSpellOut(department) + crb.addSpellOut(courseNum) + " has ");
 
             for (Course course : resultList) {
-                List<String> courseVars = crb.convertCourseToList(Arrays.asList(course), types);
-                response.append("Lecture" + " section " + courseVars.get(0)
-                        + " taught by " + courseVars.get(1) + " " + courseVars.get(2)
-                        + " on " + courseVars.get(3) + " from " + courseVars.get(4) + " to "
-                        + courseVars.get(5) + " in " + courseVars.get(6) + ". ");
+                Date startTimeDate =  formatter.parse(course.start, new ParsePosition(0));
+                Date endTimeDate = formatter.parse(course.end, new ParsePosition(0));
+
+                if (courseTimeFallsInRange(course, timeComparison, singleTimeDate)) {
+                    List<String> courseVars = crb.convertCourseToList(Arrays.asList(course), types);
+                    response.append("Lecture" + " section " + courseVars.get(0)
+                            + " taught by " + courseVars.get(1) + " " + courseVars.get(2)
+                            + " on " + courseVars.get(3) + " from " + courseVars.get(4) + " to "
+                            + courseVars.get(5) + " in " + courseVars.get(6) + ". ");
+                }
+                else {
+                    response.append(" COULDN'T ADD ");
+                    List<String> courseVars = crb.convertCourseToList(Arrays.asList(course), types);
+                    response.append("Lecture" + " section " + courseVars.get(0)
+                            + " taught by " + courseVars.get(1) + " " + courseVars.get(2)
+                            + " on " + courseVars.get(3) + " from " + courseVars.get(4) + " to "
+                            + courseVars.get(5) + " in " + courseVars.get(6) + ". ");
+                }
             }
         }
         else if (department != null && courseNum != null && startTime != null && endTime != null) {
             response.append(addQuarterYear(queryList));
-            queryList.add(new Query(QueryKey.TYPE, "lecture", QueryOperation.EQUAL, QueryLogic.AND));
+            queryList.add(new Query(QueryKey.TYPE, "LEC", QueryOperation.EQUAL, QueryLogic.AND));
             queryList.add(new Query(QueryKey.DEPARTMENT, department, QueryOperation.EQUAL, QueryLogic.AND));
-            queryList.add(new Query(QueryKey.COURSE_NUM, courseNum, QueryOperation.EQUAL, QueryLogic.AND));
-            queryList.add(new Query(QueryKey.START, startTime, QueryOperation.GREATER_THAN_OR_EQUAL, QueryLogic.AND));
-            queryList.add(new Query(QueryKey.END, endTime, QueryOperation.LESS_THAN_OR_EQUAL));
+            queryList.add(new Query(QueryKey.COURSE_NUM, courseNum, QueryOperation.EQUAL));//, QueryLogic.AND));
 
             //Query the database!!!
             List<Course> resultList = db.read(queryList);
@@ -144,19 +156,53 @@ public class CourseTimeIntent extends SchedulerIntent {
                     QueryKey.LAST_NAME, QueryKey.DAYS, QueryKey.START, QueryKey.END,
                     QueryKey.LOCATION);
 
-            response.append(crb.addSpellOut(department) + crb.addSpellOut(courseNum)
-                    + " has ");
+            response.append(crb.addSpellOut(department) + crb.addSpellOut(courseNum) + " has ");
 
             for (Course course : resultList) {
-                List<String> courseVars = crb.convertCourseToList(Arrays.asList(course), types);
-                response.append("Lecture" + " section " + courseVars.get(0)
-                        + " taught by " + courseVars.get(1) + " " + courseVars.get(2)
-                        + " on " + courseVars.get(3) + " from " + courseVars.get(4) + " to "
-                        + courseVars.get(5) + " in " + courseVars.get(6) + ". ");
+                if (courseTimeFallsInRange(course, startTime, endTime)) {
+                    List<String> courseVars = crb.convertCourseToList(Arrays.asList(course), types);
+                    response.append("Lecture" + " section " + courseVars.get(0)
+                            + " taught by " + courseVars.get(1) + " " + courseVars.get(2)
+                            + " on " + courseVars.get(3) + " from " + courseVars.get(4) + " to "
+                            + courseVars.get(5) + " in " + courseVars.get(6) + ". ");
+                }
+                else {
+                    response.append(" COULDN'T ADD ");
+                    List<String> courseVars = crb.convertCourseToList(Arrays.asList(course), types);
+                    response.append("Lecture" + " section " + courseVars.get(0)
+                            + " taught by " + courseVars.get(1) + " " + courseVars.get(2)
+                            + " on " + courseVars.get(3) + " from " + courseVars.get(4) + " to "
+                            + courseVars.get(5) + " in " + courseVars.get(6) + ". ");
+                }
             }
 
         }
 
         return response.toString();
+    }
+
+    boolean courseTimeFallsInRange(Course course, String timeComparison, Date singleTimeDate) {
+        Date courseStartTimeDate =  formatter.parse(course.start, new ParsePosition(0));
+        Date courseEndTimeDate = formatter.parse(course.end, new ParsePosition(0));
+
+        if (timeComparison.equals("before") && courseEndTimeDate.before(singleTimeDate))
+            return true;
+        else if (timeComparison.equals("after") && courseStartTimeDate.after(singleTimeDate))
+            return true;
+
+        return false;
+    }
+
+    boolean courseTimeFallsInRange(Course course, String startTime, String endTime) {
+        Date courseStartTimeDate =  formatter.parse(course.start, new ParsePosition(0));
+        Date courseEndTimeDate = formatter.parse(course.end, new ParsePosition(0));
+        Date startTimeDate = militaryFormatter.parse(startTime, new ParsePosition(0));
+        Date endTimeDate = militaryFormatter.parse(endTime, new ParsePosition(0));
+
+        if ((courseStartTimeDate.equals(startTimeDate) || courseStartTimeDate.after(startTimeDate))
+            && (courseEndTimeDate.equals(endTimeDate) || courseEndTimeDate.before(endTimeDate)))
+            return true;
+
+        return false;
     }
 }
