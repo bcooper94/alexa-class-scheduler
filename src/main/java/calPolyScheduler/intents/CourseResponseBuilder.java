@@ -14,7 +14,20 @@ public class CourseResponseBuilder {
 
         for (Course c : list) {
             for (QueryKey k : keys) {
-                response.append(courseVar(c, k) + " ");
+                response.append(courseVar(c, k, false) + " ");
+            }
+            response.append(",");
+        }
+
+        return response.toString();
+    }
+
+    public String getCardContent(List<Course> list, List<QueryKey> keys) {
+        StringBuilder response = new StringBuilder();
+
+        for (Course c : list) {
+            for (QueryKey k : keys) {
+                response.append(courseVar(c, k, true) + " ");
             }
             response.append(",");
         }
@@ -27,15 +40,15 @@ public class CourseResponseBuilder {
 
         for (Course c : list)
             for (QueryKey k : keys)
-                response.add(courseVar(c, k));
+                response.add(courseVar(c, k, false));
 
         return response;
     }
 
-    private String courseVar(Course c, QueryKey key) {
+    private String courseVar(Course c, QueryKey key, boolean isCard) {
         switch (key) {
             case DEPARTMENT:
-                return "<say-as interpret-as=\"spell-out\">" + c.department + "</say-as>";
+                return isCard ? c.department : "<say-as interpret-as=\"spell-out\">" + c.department + "</say-as>";
             case COURSE_NUM:
                 return c.courseNumber;
             case SECTION:
@@ -45,7 +58,7 @@ public class CourseResponseBuilder {
             case LAST_NAME:
                 return c.profLastName;
             case REQUIREMENT:
-                return "<say-as interpret-as=\"spell-out\">" + c.requirement + "</say-as>";
+                return isCard ? c.requirement : "<say-as interpret-as=\"spell-out\">" + c.requirement + "</say-as>";
             case TYPE:
                 String courseType = "lecture";
                 if (c.type.equals("ACT")) {
@@ -61,12 +74,12 @@ public class CourseResponseBuilder {
             case DAYS:
                 return convertDays(c.days);
             case TIME_RANGE:
-                return "from <say-as interpret-as=\"time\">" + c.start + "</say-as> to " +
-                        "<say-as interpret-as=\"time\">" + c.end + "</say-as>";
+                return isCard ? c.start + " to " + c.end : "from <say-as interpret-as=\"time\">"
+                        + c.start + "</say-as> to " + "<say-as interpret-as=\"time\">" + c.end + "</say-as>";
             case START:
-                return "<say-as interpret-as=\"time\">" + c.start + "</say-as>";
+                return isCard ? c.start : "<say-as interpret-as=\"time\">" + c.start + "</say-as>";
             case END:
-                return "<say-as interpret-as=\"time\">" + c.end + "</say-as>";
+                return isCard ? c.end : "<say-as interpret-as=\"time\">" + c.end + "</say-as>";
             case QUARTER:
                 return c.quarter;
             case YEAR:
