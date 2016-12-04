@@ -36,7 +36,7 @@ public class ScheduleManagerIntent extends SchedulerIntent {
             List<Course> resultList = db.read(queryList);
 
             //add
-            if (slots.get("AddRemove").equals("Add")) {
+            if (slots.get("AddRemove").equals("add")) {
                 response += schedule.addCourse(resultList.get(0)) ?
                         "Successfully added " : "Failed to add ";
             }

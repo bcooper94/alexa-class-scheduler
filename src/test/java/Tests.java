@@ -24,7 +24,7 @@ public class Tests {
      //db.delete(c);
   }*/
 
-  @Test
+//  @Test
   public void createManyTest() {
      Database db = new Database("http://localhost:8000");
      List<Course> courses = new ArrayList<Course>();

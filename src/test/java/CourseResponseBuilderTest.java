@@ -69,12 +69,11 @@ public class CourseResponseBuilderTest {
                 QueryKey.COLLEGE);
 
         CourseResponseBuilder crb = new CourseResponseBuilder();
-        assertEquals("DEPARTMENT " +
-                        "courseNumber " + "SECTION " + "PROFFIRSTNAME " + "PROFLASTNAME " +
+        assertEquals("DEPARTMENT " + "courseNumber " + "SECTION " + "PROFFIRSTNAME " + "PROFLASTNAME " +
                         "SAD " + "independent study " +
                         "Monday Tuesday Wednesday Thursday Friday " +
                         "8:00 PM " + "2:00 AM " + "FALL " + "2016 " +
-                        "building 22 room 434 " + "No college for you ,",
-                crb.convertCourse(courses, types));
+                        "building 22 room 434 " + "No college for you ,\n",
+                crb.getCardContent(courses, types));
     }
 }
