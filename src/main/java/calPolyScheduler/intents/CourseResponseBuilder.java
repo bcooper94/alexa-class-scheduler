@@ -3,7 +3,10 @@ package calPolyScheduler.intents;
 import dal.Course;
 import dal.QueryKey;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CourseResponseBuilder {
     public String convertCourse(List<Course> list, List<QueryKey> keys) {
@@ -17,6 +20,16 @@ public class CourseResponseBuilder {
         }
 
         return response.toString();
+    }
+
+    public List<String> convertCourseToList(List<Course> list, List<QueryKey> keys) {
+        ArrayList<String> response = new ArrayList<>();
+
+        for (Course c : list)
+            for (QueryKey k : keys)
+                response.add(courseVar(c, k));
+
+        return response;
     }
 
     private String courseVar(Course c, QueryKey key) {
