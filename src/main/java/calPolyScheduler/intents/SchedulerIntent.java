@@ -85,7 +85,13 @@ public abstract class SchedulerIntent {
         return SpeechletResponse.newAskResponse(askOutput, reprompt);
     }
 
-    protected SpeechletResponse setAnswer(String voiceOuput, String cardTitle, String appOutput) {
+    protected SpeechletResponse setAnswer(String voiceOutput, String cardTitle,
+                                          String appOutput) {
+        return setAnswer(voiceOutput, cardTitle, appOutput, true);
+    }
+
+    protected SpeechletResponse setAnswer(String voiceOutput, String cardTitle, String appOutput,
+                                          boolean askAboutCourses) {
         SpeechletResponse response;
         SimpleCard card = new SimpleCard();
         card.setTitle(cardTitle);
@@ -93,16 +99,22 @@ public abstract class SchedulerIntent {
         card.setContent(appOutput);
 
         if (this.isDone) {
-            voiceOuput = "<speak>" + voiceOuput + "</speak>";
-            outputSpeech.setSsml(voiceOuput);
+            voiceOutput = "<speak>" + voiceOutput + "</speak>";
+            outputSpeech.setSsml(voiceOutput);
             response = SpeechletResponse.newTellResponse(outputSpeech, card);
         }
         else {
             Reprompt reprompt = new Reprompt();
             PlainTextOutputSpeech repromptText = new PlainTextOutputSpeech();
 
-            voiceOuput = "<speak>" + voiceOuput + "<break time=\"2s\"/> Would you like to ask about more courses?</speak>";
-            outputSpeech.setSsml(voiceOuput);
+            voiceOutput = "<speak>" + voiceOutput;
+            if (askAboutCourses) {
+                voiceOutput += "<break time=\"2s\"/> Would you like to ask about more courses?";
+            }
+            voiceOutput += "</speak>";
+
+//            voiceOutput = "<speak>" + voiceOutput + "<break time=\"2s\"/> Would you like to ask about more courses?</speak>";
+            outputSpeech.setSsml(voiceOutput);
             repromptText.setText("Can you repeat that?");
             reprompt.setOutputSpeech(repromptText);
 

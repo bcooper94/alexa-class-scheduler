@@ -1,3 +1,10 @@
 ScheduleManager {AddRemove} {Department} {CourseNum} section {Section} to my schedule
+ScheduleManager {AddRemove} {Department} {CourseNum} to my schedule
+ScheduleManager I would like to add section {Section}
+ScheduleManager I'd like to add section {Section}
+ScheduleManager please add section {Section}
+ScheduleManager add section {Section}
+ScheduleManager section {Section}
+ScheduleManager {Section}
 ScheduleManager List my schedule
 ScheduleManager my schedule

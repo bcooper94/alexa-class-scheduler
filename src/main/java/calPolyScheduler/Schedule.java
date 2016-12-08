@@ -48,15 +48,21 @@ public class Schedule {
         return false;
     }
 
+    public boolean isEmpty() {
+        return list.isEmpty();
+    }
+
     public String getList() {
         CourseResponseBuilder crb = new CourseResponseBuilder();
-        List<QueryKey> keys = Arrays.asList(QueryKey.DEPARTMENT, QueryKey.COURSE_NUM, QueryKey.SECTION);
+        List<QueryKey> keys = Arrays.asList(QueryKey.DEPARTMENT, QueryKey.COURSE_NUM, QueryKey.SECTION,
+                QueryKey.DAYS, QueryKey.START, QueryKey.END);
         return crb.convertCourse(list, keys);
     }
 
     public String getLisForList() {
         CourseResponseBuilder crb = new CourseResponseBuilder();
-        List<QueryKey> keys = Arrays.asList(QueryKey.DEPARTMENT, QueryKey.COURSE_NUM, QueryKey.SECTION);
+        List<QueryKey> keys = Arrays.asList(QueryKey.DEPARTMENT, QueryKey.COURSE_NUM, QueryKey.SECTION,
+                QueryKey.DAYS, QueryKey.START, QueryKey.END);
         return crb.getCardContent(list, keys);
     }
 

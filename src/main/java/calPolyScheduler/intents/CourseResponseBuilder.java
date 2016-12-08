@@ -93,7 +93,7 @@ public class CourseResponseBuilder {
         return "Well somehow you done goofed";
     }
 
-    private String convertDays(String dayAbbr) {
+    public static String convertDays(String dayAbbr) {
         StringBuilder builderTheSecond = new StringBuilder();
         for (char c : dayAbbr.toCharArray()) {
             switch(c) {

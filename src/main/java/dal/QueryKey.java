@@ -27,7 +27,7 @@ public enum QueryKey {
         this.key = key;
     }
 
-    String getKey() {
+    public String getKey() {
         return key;
     }
 }

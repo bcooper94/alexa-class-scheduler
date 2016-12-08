@@ -78,22 +78,26 @@ public class SchedulerSpeechlet implements Speechlet {
             case "ProfessorIntent":
                 return new ProfessorIntent(intent, session).createResponse();
             case "ScheduleManager":
-                Schedule schedule = sessionToSchedule.get(session.getSessionId());
-
-                if (schedule == null) {
-                    log.info("Adding new Schedule to sessionToSchedule map");
-                    schedule = new Schedule();
-                    sessionToSchedule.put(session.getSessionId(), schedule);
-                }
-
-                return new ScheduleManagerIntent(intent, session, schedule).createResponse();
+                return new ScheduleManagerIntent(intent, session, getSchedule(session)).createResponse();
             case "SessionEnd":
-                return new SessionEndIntent(intent, session).createResponse();
+                return new SessionEndIntent(intent, session, getSchedule(session)).createResponse();
             case "AMAZON.HelpIntent":
                 return getHelpResponse();
             default:
                 throw new SpeechletException("Invalid Intent");
         }
+    }
+
+    private Schedule getSchedule(Session session) {
+        Schedule schedule = sessionToSchedule.get(session.getSessionId());
+
+        if (schedule == null) {
+            log.info("Adding new Schedule to sessionToSchedule map");
+            schedule = new Schedule();
+            sessionToSchedule.put(session.getSessionId(), schedule);
+        }
+
+        return schedule;
     }
 
     @Override
